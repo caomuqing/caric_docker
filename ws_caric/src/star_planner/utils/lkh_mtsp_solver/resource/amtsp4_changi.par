@@ -1,0 +1,6 @@
+SPECIAL
+PROBLEM_FILE = /root/ws_caric/src/star_planner/utils/lkh_mtsp_solver/resource/amtsp4_changi.atsp
+TRACE_LEVEL = 1
+SEED = 0
+RUNS = 1
+TOUR_FILE = /root/ws_caric/src/star_planner/utils/lkh_mtsp_solver/resource/amtsp4_changi.tour

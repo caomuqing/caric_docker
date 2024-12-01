@@ -1,0 +1,11 @@
+star_planner/test_temporarily
+/root/ws_caric/devel/.private/test_temporarily/cmake.lock /root/ws_caric/devel/./cmake.lock
+/root/ws_caric/devel/.private/test_temporarily/share/test_temporarily/cmake/test_temporarilyConfig.cmake /root/ws_caric/devel/share/test_temporarily/cmake/test_temporarilyConfig.cmake
+/root/ws_caric/devel/.private/test_temporarily/share/test_temporarily/cmake/test_temporarilyConfig-version.cmake /root/ws_caric/devel/share/test_temporarily/cmake/test_temporarilyConfig-version.cmake
+/root/ws_caric/devel/.private/test_temporarily/lib/pkgconfig/test_temporarily.pc /root/ws_caric/devel/lib/pkgconfig/test_temporarily.pc
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/pcd_reader_node /root/ws_caric/devel/lib/test_temporarily/pcd_reader_node
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/gcs_talker_node /root/ws_caric/devel/lib/test_temporarily/gcs_talker_node
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/sensor_pose_trans_node /root/ws_caric/devel/lib/test_temporarily/sensor_pose_trans_node
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/ppcom_talker_node /root/ws_caric/devel/lib/test_temporarily/ppcom_talker_node
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/traj_trans_node /root/ws_caric/devel/lib/test_temporarily/traj_trans_node
+/root/ws_caric/devel/.private/test_temporarily/lib/test_temporarily/take_off_node /root/ws_caric/devel/lib/test_temporarily/take_off_node

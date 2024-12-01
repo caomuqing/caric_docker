@@ -1,0 +1,31 @@
+#configuration file for waypoints.
+coordinate_type:              'enu'
+path_mode:                    'polynomial'
+intermediate_poses:           true
+intermediate_pose_separation: 5.0
+reference_speed:              10.0
+reference_acceleration:       5.0
+takeoff_height:               1.0
+landing_height:               0.0
+heading_mode:                 'manual'
+
+easting:  [  0,  80,   92, -05,
+             0,  80,   92, -05,
+             0,  80,   92, -05,
+             0,  80,   92, -05,
+             0,  80,   92, -05 ]
+northing: [  5, -32,  -07,  35,
+             5, -32,  -07,  35,
+             5, -32,  -07,  35,
+             5, -32,  -07,  35,
+             5, -32,  -07,  35 ]
+height:   [ 10,  10,   10,  10,
+            15,  15,   15,  15,
+            20,  20,   20,  20,
+            25,  25,   25,  25,
+            30,  30,   30,  30 ]
+heading:  [ 80, 170,  260, 350,
+            80, 170,  260, 350,
+            80, 170,  260, 350,
+            80, 170,  260, 350,
+            80, 170,  260, 350]

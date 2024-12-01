@@ -1,0 +1,35 @@
+Performing C SOURCE FILE Test HAVE_THREAD_LOCAL_STORAGE failed with the following output:
+Change Dir: /root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_9f5ab/fast && /usr/bin/make -f CMakeFiles/cmTC_9f5ab.dir/build.make CMakeFiles/cmTC_9f5ab.dir/build
+make[1]: Entering directory '/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_9f5ab.dir/src.c.o
+/usr/bin/cc   -DHAVE_THREAD_LOCAL_STORAGE   -o CMakeFiles/cmTC_9f5ab.dir/src.c.o   -c /root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c:2:5: warning: return type defaults to ‘int’ [-Wimplicit-int]
+    2 |     __declspec(thread) int tls;
+      |     ^~~~~~~~~~
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c: In function ‘__declspec’:
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c:4:20: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘{’ token
+    4 |     int main(void) {
+      |                    ^
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c:2:5: warning: type of ‘thread’ defaults to ‘int’ [-Wimplicit-int]
+    2 |     __declspec(thread) int tls;
+      |     ^~~~~~~~~~
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c:2:28: error: declaration for parameter ‘tls’ but no such parameter
+    2 |     __declspec(thread) int tls;
+      |                            ^~~
+/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp/src.c:6: error: expected ‘{’ at end of input
+    6 |     }
+      | 
+make[1]: *** [CMakeFiles/cmTC_9f5ab.dir/build.make:66: CMakeFiles/cmTC_9f5ab.dir/src.c.o] Error 1
+make[1]: Leaving directory '/root/ws_caric/src/star_planner/nlopt-2.7.1/build/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_9f5ab/fast] Error 2
+
+
+Source file was:
+
+    __declspec(thread) int tls;
+
+    int main(void) {
+        return 0;
+    }

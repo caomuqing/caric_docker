@@ -1,0 +1,11 @@
+NAME : single_frontier.1202.tour
+COMMENT : Length = 1202
+COMMENT : Found by LKH [Keld Helsgaun] Mon Dec  2 05:10:54 2024
+TYPE : TOUR
+DIMENSION : 3
+TOUR_SECTION
+1
+3
+2
+-1
+EOF

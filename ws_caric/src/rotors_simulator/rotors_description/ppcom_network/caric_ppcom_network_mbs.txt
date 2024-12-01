@@ -1,0 +1,7 @@
+# Name,    Role,     AntOffset, HorzFOV, VertFOV, CamPosX, CamPosY, CamPosZ, ExposureTime, TriggerInterval, FocalLength, PixelSize, DesiredMmPerPixel, GimbalPitchMax, GimbalYawMax, GimbalRateMax
+gcs,       manager,  0.1,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60      
+jurong,    peer,     0.2,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60     
+raffles,   peer,     0.2,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60     
+sentosa,   peer,     0.1,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60     
+changi,    peer,     0.1,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60     
+nanyang,   peer,     0.1,       80,      60,      0.2,     0.0,     -0.3,    0.001,        0.1,             0.016,       4.35e-6,   2.0,               80,             90,           60     

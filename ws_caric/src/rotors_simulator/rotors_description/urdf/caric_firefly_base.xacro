@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2015 Fadri Furrer, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Michael Burri, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Mina Kamel, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Janosch Nikolic, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Markus Achtelik, ASL, ETH Zurich, Switzerland
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<robot name="caric_firefly" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Declare some properties-->
+  <xacro:property name="ppcom_id" value="$(arg ppcom_id)" />
+  <xacro:property name="ppcom_config" value="$(arg ppcom_config)" />
+
+  <!-- Common sensors pool -->
+  <xacro:include filename="$(find rotors_description)/urdf/component_snippets.xacro" />
+  
+  <!-- Instantiate firefly "mechanics" -->
+  <xacro:include filename="$(find rotors_description)/urdf/firefly.xacro" />
+
+  <!-- Instantiate a controller. -->
+  <xacro:controller_plugin_macro namespace="${namespace}" imu_sub_topic="imu" />
+  
+  <!-- Instantiate a ROS message interface -->
+  <!-- <xacro:ros_interface_plugin_macro namespace="${namespace}" /> -->
+
+  <!-- Instantiate mavlink telemetry interface. -->
+  <!-- <xacro:if value="$(arg enable_mavlink_interface)">
+    <xacro:default_mavlink_interface namespace="${namespace}" imu_sub_topic="imu" rotor_count="6" />
+  </xacro:if> -->
+
+  <!-- Mount an ADIS16448 IMU. -->
+  <xacro:default_imu namespace="${namespace}" parent_link="${namespace}/base_link" />
+
+  <!-- Groundtruth -->
+  <xacro:if value="$(arg enable_ground_truth)">
+    <xacro:ground_truth_imu_and_odometry namespace="${namespace}" parent_link="${namespace}/base_link" />
+  </xacro:if>
+
+  <!-- <xacro:if value="$(arg enable_logging)"> -->
+    <!-- Instantiate a logger -->
+    <!-- <xacro:bag_plugin_macro
+      namespace="${namespace}"
+      bag_file="$(arg log_file)"
+      rotor_velocity_slowdown_sim="${rotor_velocity_slowdown_sim}" 
+      wait_to_record_bag="$(arg wait_to_record_bag)" /> -->
+  <!-- </xacro:if> -->
+
+  <!-- Mount a PPCom-sensor in the center of body. -->
+  <!-- <xacro:ppcom_plugin_macro
+      namespace="${namespace}"
+      parent_link="${namespace}/base_link"
+      mass="0.015"
+      ppcom_suffix=""
+      ppcom_topic="ppcom"
+      ppcom_id="${ppcom_id}"
+      ppcom_config="${ppcom_config}"
+  >
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </xacro:ppcom_plugin_macro> -->
+
+  <!-- <sensor name='my_contact' type='contact'>
+    <contact>
+      <collision>box_collision</collision>
+    </contact>
+  </sensor> -->
+
+  <!-- Mount a lidar sensor -->
+  <!-- <xacro:lidars_plugin_macro
+      namespace="${namespace}"
+      parent_link="${namespace}/base_link"
+      mass="0.01"
+      lidar_suffix=""
+  >
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </xacro:lidars_plugin_macro> -->
+
+  <xacro:include filename="$(find rotors_description)/urdf/servo.xacro" />
+  <xacro:servo
+    namespace="${namespace}"
+    suffix=""
+    parent="${namespace}/base_link"
+    mass_servo="0.05"
+    rotating_period="8.0"
+  >
+    <origin xyz="0.2 0 0.2" rpy="0 0 0" />
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    <!-- <xacro:insert_block name="rotor_inertia" /> -->
+  </xacro:servo>
+
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <xacro:VLP-16 parent="${namespace}/servo"
+                name="velodyne" topic="/${namespace}/velodyne_points"
+                max_range="65.0" noise="0.0" hz="10" samples="440" gpu="false">
+    <origin xyz="0.0 0.0 -0.03585" rpy="0 0 0" />
+    <!-- <origin xyz="0.0 0.0 0.2" rpy="1.57079632679 0 0" /> -->
+  </xacro:VLP-16>
+
+</robot>

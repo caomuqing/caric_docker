@@ -1,0 +1,42 @@
+<launch>
+
+    <arg name="namespace"     default="gcs" />
+    <arg name="model"         default="$(find rotors_description)/urdf/gcs.xacro" />
+
+    <arg name="ppcom_id"      default="gcs" />
+    <arg name="ppcom_config"  default="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+    <arg name="ppcom_hz"      default="10" />
+    <arg name="interest_points"  default="$(find caric_mission)/models/mbs/mbs.pcd" />
+    <arg name="cam_rel_to_drone_x"      default="0.3" />
+    <arg name="cam_rel_to_drone_y"      default="0.0" />
+    <arg name="cam_rel_to_drone_z"      default="-0.2" />
+
+    <arg name="tf_prefix"     default="$(optenv ROS_NAMESPACE)" />
+
+    <arg name="x" default="0.0" />
+    <arg name="y" default="5.0" />
+    <arg name="z" default="0.0" />
+
+    <arg name="enable_ground_truth" default="true" />
+
+    <param name="robot_description"
+        command="$(find xacro)/xacro '$(arg model)'
+                enable_ground_truth:=$(arg enable_ground_truth)
+                namespace:=$(arg namespace)
+                ppcom_id:=$(arg ppcom_id)
+                ppcom_config:=$(arg ppcom_config)
+                ppcom_hz:=$(arg ppcom_hz)
+                interest_points:=$(arg interest_points)"
+    />
+
+    <node name="spawn_gcs" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description
+            -urdf
+            -x $(arg x)
+            -y $(arg y)
+            -z $(arg z)
+            -model $(arg namespace)"
+        respawn="false" output="screen">
+    </node>
+
+</launch>

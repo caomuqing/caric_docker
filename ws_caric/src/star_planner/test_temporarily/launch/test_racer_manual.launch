@@ -1,0 +1,39 @@
+<launch>
+    <arg name="manual_control" default="true" />
+
+    <arg name="map_size_x" value="125.0" />
+    <arg name="map_size_y" value="75.0" />
+    <arg name="map_size_z" value="65.0" />
+
+    <!-- Global odom prefix -->
+    <arg name="odom_topic" default="ground_truth/odometry" />
+    <arg name="drone_num" value="2" />
+    <arg name="boundingbox_path"
+        value="$(find caric_mission)/models/mbs/bounding_boxes/box_description.yaml" />
+
+    <!-- Launch the gazebo simulator -->
+    <include file="$(find caric_mission)/launch/run_mbs_explorer.launch" />
+
+    <group ns="jurong">
+
+        <arg name="namespace" default="jurong" />
+
+        <group if="$(eval arg('manual_control') == true)">
+
+            <node name="key_joystick" pkg="rotors_joy_interface" type="key_joystick.py" />
+            <node name="joy_node" pkg="joy" type="joy_node" />
+            <node name="rotors_joy_control_interface" pkg="rotors_joy_interface"
+                type="rotors_joy_control_interface" output="screen">
+                <remap from="/ground_truth/odometry"
+                    to="/$(arg namespace)/$(arg odom_topic)" />
+                <remap from="/firefly/command/trajectory"
+                    to="/$(arg namespace)/command/trajectory" />
+                <remap from="/firefly/command/gimbal"
+                    to="/$(arg namespace)/command/gimbal" />
+            </node>
+
+        </group>
+
+    </group>
+
+</launch>

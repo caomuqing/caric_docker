@@ -1,0 +1,216 @@
+<launch>
+
+    <arg name="delay_launch"          default="1.0" /> <!-- Delay of 5 seconds to let RViz come up -->
+    <!-- <arg name="odom_topic"            default="ground_truth/odometry" /> -->
+
+    <arg name="enable_thrust_control" default="false" />
+    <arg name="sim_type"              default="rotors" />
+ 
+    <arg name="world_name"            default="$(find caric_mission)/worlds/mbs.world" />
+    <arg name="interest_points"       default="$(find caric_mission)/models/mbs/mbs_interest_points.pcd" />
+
+    <arg name="enable_logging"        default="false" />
+    <arg name="enable_ground_truth"   default="true" />
+    <!-- <arg name="log_file" default="$(arg mav_name)" /> -->
+    <arg name="debug"                 default="false" />
+    <arg name="gui"                   default="false" />
+    <arg name="paused"                default="false" />
+    <arg name="frame_id"              default="odom" />
+    <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+    (even when Gazebo is started through roslaunch) -->
+    <arg name="verbose"               default="false" />
+
+    <!-- Frequency to check the line of sight raytracing -->
+    <arg name="ppcom_hz"              default="50"/>
+    <arg name="ppcom_file"            default="caric_ppcom_network_mbs.txt"/>
+
+    <param name="/use_sim_time"       value="false"/>
+
+    <!-- Launch the Gazebo World -->
+    <env name="GAZEBO_MODEL_PATH"     value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models:$(find caric_mission)/models" />
+    <env name="GAZEBO_RESOURCE_PATH"  value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models:$(find caric_mission)/models" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name"        value="$(arg world_name)" />
+        <arg name="headless"          value="false"/>
+        <arg name="debug"             value="$(arg debug)" />
+        <arg name="paused"            value="$(arg paused)" />
+        <arg name="gui"               value="$(arg gui)" />
+        <arg name="verbose"           value="$(arg verbose)" />
+    </include>
+
+
+    <!-- Visualize MBS in RVIZ -->
+    <param name="/model_path" type="string" value="$(find caric_mission)/models/mbs"/>
+    <param name="/bounding_box_path" type="string" value="$(find caric_mission)/models/mbs/bounding_boxes"/>
+    <node name="mesh_visualizer" pkg="caric_mission" type="mesh_visualizer.py" output="screen"
+          launch-prefix="bash -c 'sleep $(arg delay_launch); $0 $@'">
+    </node>
+
+
+    <!-- Launch the MissionManager -->
+    <node name="mission_manager" pkg="caric_mission" type="caric_mission_mission_manager_node" required="true" respawn="false"
+          output="screen" launch-prefix="bash -c 'sleep delay_launch; echo LAUNCHING MISSION MANAGER...; $0 $@'">
+          
+          <param name="mission_duration" type="double" value="600.0"/>
+          <param name="log_dir"          type="string" value="$(find caric_mission)/logs/mbs/"/>
+          <rosparam param="T_B_S">   [0.0, 0.0, 0.2, 1.0, 0.0, 0.0, 0.0]</rosparam>
+          <rosparam param="T_S_L">   [0.0, 0.0, -0.03585, 1.0, 0.0, 0.0, 0.0]</rosparam>
+          <param name="kf_knn_num"   type="double" value="5"/>
+          <param name="kf_min_dis"   type="double" value="2.0"/>
+          <param name="kf_min_ang"   type="double" value="10"/>
+          <param name="kf_voxsize"   type="double" value="0.5"/>
+
+    </node>
+
+
+    <!-- Launch the ppcom router -->
+    <node name="ppcom_router" pkg="caric_mission" type="ppcom_router.py" output="screen">
+    </node>
+
+
+    <!-- Spawning the ground station -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="tf_world_to_score_report" args="30 -40 0 0 0 0 world score_report"/>
+    <include file="$(find caric_mission)/launch/spawn_gcs.launch">
+
+        <arg name="namespace"         value="gcs" />
+        <arg name="model"             value="$(find rotors_description)/urdf/gcs.xacro" />
+        
+        <arg name="ppcom_id"          value="gcs" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+        <arg name="interest_points"   value="$(arg interest_points)" />
+
+        <arg name="x"                 value="-9" />
+        <arg name="y"                 value="-3" />
+        <arg name="z"                 value="+1.5" />
+
+    </include>
+
+
+    <!-- Spawning an explorer drone -->
+    <include file="$(find caric_mission)/launch/spawn_uav.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="jurong" />
+        <arg name="role"              value="explorer" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_explorer.xacro" />
+
+        <arg name="ppcom_id"          value="jurong" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+
+        <arg name="start_x"           value="4.8" />
+        <arg name="start_y"           value="0.2" />
+
+    </include>
+
+
+    <!-- Spawning another explorer drone -->
+    <include file="$(find caric_mission)/launch/spawn_uav.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="raffles" />
+        <arg name="role"              value="explorer" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_explorer.xacro" />
+
+        <arg name="ppcom_id"          value="raffles" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+
+        <arg name="start_x"           value="-3.5" />
+        <arg name="start_y"           value="+1.0" />
+
+    </include>
+
+
+    <!-- Spawning a photographer drone -->
+    <include file="$(find caric_mission)/launch/spawn_uav.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="sentosa" />
+        <arg name="role"              value="photographer" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_photographer.xacro" />
+
+        <arg name="ppcom_id"          value="sentosa" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+
+        <arg name="start_x"           value="7.0" />
+        <arg name="start_y"           value="6.7" />
+
+    </include>
+
+
+    <!-- Spawning another photographer drone -->
+    <include file="$(find caric_mission)/launch/spawn_uav.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="changi" />
+        <arg name="role"              value="photographer" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_photographer.xacro" />
+
+        <arg name="ppcom_id"          value="changi" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+
+        <arg name="start_x"           value="+12.0" />
+        <arg name="start_y"           value="-5.0" />
+
+    </include>
+
+
+    <!-- Spawning another photographer drone -->
+    <include file="$(find caric_mission)/launch/spawn_uav.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="nanyang" />
+        <arg name="role"              value="photographer" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_photographer.xacro" />
+
+        <arg name="ppcom_id"          value="nanyang" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/$(arg ppcom_file)" />
+        <arg name="ppcom_hz"          value="$(arg ppcom_hz)" />
+
+        <arg name="start_x"           value="+0.8" />
+        <arg name="start_y"           value="-7.5" />
+
+    </include>
+
+
+    <node pkg="rviz" type="rviz" name="rviz_caric" args="-d $(find caric_mission)/rviz/caric_mbs.rviz" respawn="true"/>
+
+  <node pkg="caric_mission" type="path_visualizer.py" name="drone_path_tracker" output="screen">
+    <!-- Set the minimum distance between points -->
+    <param name="min_distance" value="1.0" />
+    
+    <!-- Set the line thickness -->
+    <param name="line_thickness" value="0.4" />
+    
+    <!-- Set colors for each drone -->
+    <param name="raffles_color_r" value="1.0" />
+    <param name="raffles_color_g" value="0.27" />
+    <param name="raffles_color_b" value="0.0" />
+    <param name="raffles_color_a" value="1.0" />
+
+    <param name="jurong_color_r" value="0.0" />
+    <param name="jurong_color_g" value="0.39" />
+    <param name="jurong_color_b" value="1.0" />
+    <param name="jurong_color_a" value="1.0" />
+
+    <param name="sentosa_color_r" value="0.0" />
+    <param name="sentosa_color_g" value="0.78" />
+    <param name="sentosa_color_b" value="0.39" />
+    <param name="sentosa_color_a" value="1.0" />
+
+    <param name="changi_color_r" value="1.0" />
+    <param name="changi_color_g" value="0.55" />
+    <param name="changi_color_b" value="0.0" />
+    <param name="changi_color_a" value="1.0" />
+
+    <param name="nanyang_color_r" value="0.54" />
+    <param name="nanyang_color_g" value="0.17" />
+    <param name="nanyang_color_b" value="0.89" />
+    <param name="nanyang_color_a" value="1.0" />
+  </node>
+
+</launch>

@@ -1,0 +1,123 @@
+<launch>
+    <arg name="odom_topic"            default="ground_truth/odometry" />
+
+    <arg name="enable_thrust_control" default="false" />
+    <arg name="sim_type"              default="rotors" />
+ 
+    <arg name="world_name"            default="$(find rotors_gazebo)/worlds/caric_building.world" />
+
+    <arg name="enable_logging"        default="false" />
+    <arg name="enable_ground_truth"   default="true" />
+    <!-- <arg name="log_file" default="$(arg mav_name)" /> -->
+    <arg name="debug"                 default="false" />
+    <arg name="gui"                   default="true" />
+    <arg name="paused"                default="false" />
+    <arg name="frame_id"              default="odom" />
+    <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+    (even when Gazebo is started through roslaunch) -->
+    <arg name="verbose"               default="false" />
+
+    <env name="GAZEBO_MODEL_PATH"     value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models" />
+    <env name="GAZEBO_RESOURCE_PATH"  value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name"        value="$(arg world_name)" />
+        <arg name="debug"             value="$(arg debug)" />
+        <arg name="paused"            value="$(arg paused)" />
+        <arg name="gui"               value="$(arg gui)" />
+        <arg name="verbose"           value="$(arg verbose)" />
+    </include>
+
+
+    <!-- Spawning the ground station -->
+    <include file="$(find unicon)/launch/spawn_gcs.launch">
+
+        <arg name="namespace"         value="gcs" />
+        <arg name="model"             value="$(find rotors_description)/urdf/gcs.xacro" />
+        
+        <arg name="ppcom_id"          value="gcs" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+
+        <arg name="x"                 value="0.0" />
+        <arg name="y"                 value="5.0" />
+        <arg name="z"                 value="10.0" />
+
+    </include>
+
+
+    <!-- Spawning one drone -->
+    <include file="$(find unicon)/launch/rotors_single.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="jurong" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+
+        <arg name="ppcom_id"          value="jurong" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+        <arg name="start_x"           value="0.0" />
+        <arg name="start_y"           value="-1.0" />
+
+    </include>
+
+
+    <!-- Spawning another drone -->
+    <include file="$(find unicon)/launch/rotors_single.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="raffles" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+
+        <arg name="ppcom_id"          value="raffles" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+        <arg name="start_x"           value="12.0" />
+        <arg name="start_y"           value="5.0" />
+
+    </include>
+
+
+    <!-- Spawning another drone -->
+    <include file="$(find unicon)/launch/rotors_single.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="sentosa" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+
+        <arg name="ppcom_id"          value="sentosa" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+        <arg name="start_x"           value="0.0" />
+        <arg name="start_y"           value="-5.0" />
+
+    </include>
+
+
+    <!-- Spawning another drone -->
+    <include file="$(find unicon)/launch/rotors_single.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="changi" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+
+        <arg name="ppcom_id"          value="changi" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+        <arg name="start_x"           value="0.0" />
+        <arg name="start_y"           value="-10.0" />
+
+    </include>
+
+
+    <!-- Spawning another drone -->
+    <include file="$(find unicon)/launch/rotors_single.launch">
+
+        <arg name="mav_name"          value="firefly" />
+        <arg name="namespace"         value="nanyang" />
+        <arg name="model"             value="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+
+        <arg name="ppcom_id"          value="nanyang" />
+        <arg name="ppcom_config"      value="$(find rotors_description)/ppcom_network/caric_ppcom_network.txt" />
+        <arg name="start_x"           value="2.0" />
+        <arg name="start_y"           value="-15.0" />
+
+    </include>
+
+    <node pkg="rviz" type="rviz" name="rviz_caric" args="-d $(find traj_gennav)/rviz/rviz.rviz" />
+
+</launch>

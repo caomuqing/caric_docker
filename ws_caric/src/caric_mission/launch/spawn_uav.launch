@@ -1,0 +1,96 @@
+<launch>
+    <arg name="odom_topic"            default="ground_truth/odometry" />
+
+    <arg name="enable_thrust_control" default="false" />
+    <arg name="sim_type"              default="rotors" />
+
+    <arg name="mav_name"              default="firefly" />
+    <arg name="namespace"             default="$(arg mav_name)" />
+    <arg name="model"                 default="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+    
+    <arg name="ppcom_id"              default="firefly" />
+    <arg name="ppcom_config"          default="$(find rotors_description)/ppcom_network/caric_network.txt" />
+    <arg name="ppcom_hz"              default="10" />
+
+    <arg name="world_name"            default="$(find rotors_gazebo)/worlds/city12_tiltedbuildings.world" />
+    <arg name="enable_ground_truth"   default="true" />
+    <!-- <arg name="enable_logging"        default="false" /> -->
+    <!-- <arg name="log_file" default="$(arg mav_name)" /> -->
+    <arg name="debug"                 default="false" />
+    <arg name="gui"                   default="false" />
+    <arg name="paused"                default="false" />
+    <arg name="frame_id"              default="odom" />
+    <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+    (even when Gazebo is started through roslaunch) -->
+    <arg name="verbose"               default="false" />
+
+    <arg name="start_x"               default="0.0" />
+    <arg name="start_y"               default="0.0" />
+
+    <arg name="delay_time"            default="10.0" />
+
+    <!-- Role of the UAV, for proper PID params-->
+    <arg name="role"                  default="$(arg role)" />
+    <arg name="manual_control"        default="false" />
+
+    <group ns="$(arg namespace)">
+
+        <!-- Launching the UAV model -->
+        <include file="$(find rotors_gazebo)/launch/spawn_mav.launch">
+            
+            <arg name="mav_name"            value="$(arg namespace)" />
+            <arg name="model"               value="$(arg model)" />
+            <arg name="enable_ground_truth" value="$(arg enable_ground_truth)" />
+            <arg name="x"                   value="$(arg start_x)" />
+            <arg name="y"                   value="$(arg start_y)" />
+            <arg name="ppcom_id"            value="$(arg ppcom_id)" />
+            <arg name="ppcom_config"        value="$(arg ppcom_config)" />
+            
+        </include>
+
+        <!-- Launching the trajectory controller -->
+        <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen"
+              launch-prefix="bash -c 'sleep $(arg delay_time); $0 $@' ">
+            
+            <param name="frame_id"              type="string"  value="world" />
+            <param name="sim_type"              type="string"  value="$(arg sim_type)" />
+            <param name="mpc_sim"               type="bool"    value="false" />
+            <param name="enable_thrust_control" type="bool"    value="$(arg enable_thrust_control)" />
+            <rosparam file="$(find unicon)/param/param_$(arg role).yaml" />
+
+            <remap from="vins_estimator/odometry"
+                   to="/$(arg namespace)/$(arg odom_topic)" />
+            <remap from="roll_pitch_yawrate_thrust"
+                   to="/$(arg namespace)/command/roll_pitch_yawrate_thrust" />
+            <remap from="command/trajectory"
+                   to="/$(arg namespace)/command/trajectory" />
+        </node>
+
+        <!-- PID controller -->
+        <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller"
+              type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen"
+              launch-prefix="bash -c 'sleep $(arg delay_time); $0 $@' ">
+            
+            <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg role).yaml" />
+            <remap from="odometry" to="/$(arg namespace)/$(arg odom_topic)" />
+
+        </node>
+
+        <group if="$(eval arg('manual_control') == true)">
+
+            <node name="key_joystick" pkg="rotors_joy_interface" type="key_joystick.py" />
+            <node name="joy_node" pkg="joy" type="joy_node" />
+            <node name="rotors_joy_control_interface" pkg="rotors_joy_interface" type="rotors_joy_control_interface" output="screen">
+                <remap from="/ground_truth/odometry"
+                       to="/$(arg namespace)/$(arg odom_topic)" />
+                <remap from="/firefly/command/trajectory"
+                       to="/$(arg namespace)/command/trajectory" />  
+                <remap from="/firefly/command/gimbal"
+                       to="/$(arg namespace)/command/gimbal" />       
+            </node>
+
+        </group>
+
+    </group>
+
+</launch>

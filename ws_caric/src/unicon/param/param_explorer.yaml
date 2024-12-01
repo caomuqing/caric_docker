@@ -1,0 +1,16 @@
+CtrlOmega_xy: 2.0
+CtrlOmega_z: 4.0
+CtrlZita_xy: 1.0
+CtrlZita_z: 1.1
+PosErrorAccumulatedLimit_xyz: 10
+Pos_ki_xy: 0.03
+Pos_ki_z: 0.07
+
+k_p_yaw_: 2.0
+k_I_yaw_: 0.02
+yawErrorAccumLim_: 1.57
+thrust_: 159.0
+max_angle_: 45
+max_yaw_rate_: 90
+
+

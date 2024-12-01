@@ -1,0 +1,13 @@
+<launch>
+	<group ns="viewpoint">
+		<arg name="namespace"  default="jurong" />
+		<node name="vision_create" pkg="vision_create_new" output="screen" type="process_pcd" launch-prefix="bash -c 'sleep 5; $0 $@'" >
+			<remap from="/slf_kf_cloud"                to="/$(arg namespace)/slf_kf_cloud" />
+			<remap from="/Octomap"                     to="/$(arg namespace)/Octomap" />
+			<remap from="/ViewPoints_Points"           to="/$(arg namespace)/ViewPoints_Points" />
+			<remap from="/ViewPoints_Lines"            to="/$(arg namespace)/ViewPoints_Lines" />
+			<remap from="/ViewPoints"                  to="/$(arg namespace)/ViewPoints" />
+			<remap from="/ViewPoints_lines"            to="/$(arg namespace)/ViewPoints_lines" />
+		</node>
+	</group>
+</launch>

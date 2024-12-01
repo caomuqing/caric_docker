@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/lab318/ws_HCPP/devel/lib/python3/dist-packages",
+        "/home/lab318/ws_caric/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/lab318/ws_HCPP/devel/lib/python3/dist-packages",
+        "/home/lab318/ws_caric/devel/lib/python3/dist-packages",
+        "/opt/ros/noetic/lib/python3/dist-packages"
+    ]
+}

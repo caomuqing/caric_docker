@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2015 Fadri Furrer, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Michael Burri, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Mina Kamel, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Janosch Nikolic, ASL, ETH Zurich, Switzerland
+  Copyright 2015 Markus Achtelik, ASL, ETH Zurich, Switzerland
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<robot name="caric_gcs" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Properties -->
+  <xacro:property name="namespace"        value="$(arg namespace)" />
+  <xacro:property name="ppcom_id"         value="$(arg ppcom_id)" />
+  <xacro:property name="ppcom_config"     value="$(arg ppcom_config)" />
+  <xacro:property name="ppcom_hz"         value="$(arg ppcom_hz)" />
+  <xacro:property name="interest_points"  value="$(arg interest_points)" />
+
+  <xacro:property name="use_mesh_file"    value="true" />
+  <xacro:property name="mesh_file"        value="package://rotors_description/meshes/gcs/gcs.dae" />
+  <xacro:property name="mass"             value="1.5" /> <!-- [kg] -->
+  <xacro:property name="body_width"       value="0.1" /> <!-- [m] -->
+  <xacro:property name="body_height"      value="0.16" /> <!-- [m] -->
+
+  <!-- Property Blocks -->
+  <xacro:property name="body_inertia">
+    <inertia ixx="0.1" ixy="0.0" ixz="0.0"
+                       iyy="0.1" iyz="0.0"
+                                 izz="0.1" />
+  </xacro:property>
+
+  <!-- Included URDF Files -->
+  <xacro:include filename="$(find rotors_description)/urdf/gcs_base.xacro" />
+
+  <!-- Instantiate gcs_base_macro once -->
+  <xacro:gcs_base_macro
+    robot_namespace="${namespace}"
+    mass="${mass}"
+    body_width="${body_width}"
+    body_height="${body_height}"
+    use_mesh_file="${use_mesh_file}"
+    mesh_file="${mesh_file}"
+  >
+    <xacro:insert_block name="body_inertia" />
+  </xacro:gcs_base_macro>
+
+  <!-- Instantiate a controller. -->
+  <!-- <xacro:controller_plugin_macro namespace="${namespace}" imu_sub_topic="imu" /> -->
+  
+  <!-- Mount an ADIS16448 IMU. -->
+  <!-- <xacro:default_imu namespace="${namespace}" parent_link="${namespace}/base_link" /> -->
+
+  <!-- Common sensors pool -->
+  <xacro:include filename="$(find rotors_description)/urdf/component_snippets.xacro" />
+
+  <!-- Groundtruth -->
+  <xacro:if value="$(arg enable_ground_truth)">
+    <xacro:ground_truth_imu_and_odometry namespace="${namespace}" parent_link="${namespace}/base_link" />
+  </xacro:if>
+
+  <!-- Mount a PPCom-sensor in the center of body. -->
+  <xacro:ppcom_plugin_macro
+      namespace="${namespace}"
+      parent_link="${namespace}/base_link"
+      mass="0.015"
+      ppcom_suffix=""
+      ppcom_topic="ppcom"
+      ppcom_id="${ppcom_id}"
+      ppcom_config="${ppcom_config}"
+      ppcom_hz="${ppcom_hz}"
+      interest_points="${interest_points}"
+  >
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </xacro:ppcom_plugin_macro>
+
+  <!-- <xacro:caric_plugin_macro
+      namespace="${namespace}"
+      parent_link="${namespace}/base_link"
+      mass="0.015"
+      ppcom_config="${ppcom_config}"
+      interest_points="${interest_points}"
+      ppcom_topic="ppcom"
+      ppcom_hz="${ppcom_hz}"
+      cam_x="${cam_x}"
+      cam_y="${cam_y}"
+      cam_z="${cam_z}"            
+  >
+    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+  </xacro:caric_plugin_macro> -->
+
+</robot>

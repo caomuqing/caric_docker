@@ -1,0 +1,5 @@
+# Hashes of file build rules.
+a34888b65d68593e16661fcbd082fa44 CMakeFiles/generate-cpp
+a34888b65d68593e16661fcbd082fa44 CMakeFiles/generate-fortran
+3d4f8a5bf0e38e14a60730a779e2f5e6 nlopt.f
+f30ef03e277e9586c105f60b07c181e4 nlopt.hpp

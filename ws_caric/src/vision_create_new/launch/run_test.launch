@@ -1,0 +1,3 @@
+<launch>
+    	<node name="test_node" pkg="vision_create" output="screen" type="mtest"  />
+</launch>

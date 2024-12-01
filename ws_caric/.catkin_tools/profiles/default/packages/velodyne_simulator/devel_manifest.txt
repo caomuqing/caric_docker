@@ -1,0 +1,2 @@
+velodyne_simulator/velodyne_simulator
+/root/ws_caric/devel/.private/velodyne_simulator/cmake.lock /root/ws_caric/devel/./cmake.lock

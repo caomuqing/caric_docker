@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
+  <asset>
+    <contributor />
+    <unit meter="1" />
+  </asset>
+  <library_lights />
+  <library_materials />
+  <library_effects />
+  <library_cameras />
+  <library_geometries>
+    <geometry id="mesh_1" name="Mesh">
+      <mesh>
+        <source id="mesh_1-position" name="position">
+          <float_array id="mesh_1-position-array" count="0" />
+          <technique_common>
+            <accessor source="#mesh_1-position-array" count="0" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="mesh_1-normal" name="normal">
+          <float_array id="mesh_1-normal-array" count="0" />
+          <technique_common>
+            <accessor source="#mesh_1-normal-array" count="0" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="mesh_1-vertices">
+          <input semantic="POSITION" source="#mesh_1-position" />
+        </vertices>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_images />
+  <library_visual_scenes>
+    <visual_scene id="Scene">
+      <node id="Mesh" sid="Mesh" name="Mesh" type="NODE">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_geometry url="#mesh_1" />
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <library_animations />
+  <scene>
+    <instance_visual_scene url="#Scene" />
+  </scene>
+</COLLADA>

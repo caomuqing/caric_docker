@@ -1,0 +1,455 @@
+#!bin/bash
+source ~/ws_caric/devel/setup.bash
+
+xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star901
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star902
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star903
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star904
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star905
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star906
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star907
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star908
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+ 
+# xterm -hold -e "roslaunch caric_mission run_hangar.launch" & sleep 1
+
+#   sleep 30
+#   xterm -hold -e "roslaunch exploration_manager test_all_hangar.launch" & sleep 1
+#   sleep 600 
+#  rosnode kill -a
+#  sleep 5 
+#  killall -9 gzserver
+#  killall xterm
+#  sleep 10 
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star909
+ 
+  sleep 10 
+
+# bash runall_kios
+
+
+
+xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star908
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+
+ xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star908
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+
+ xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star908
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+
+
+ xterm -hold -e "roslaunch caric_mission run_crane.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_crane.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5
+ killall -9 gzserver
+ killall xterm
+ sleep 10 
+ 
+ mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_star908
+ 
+  sleep 10 
+  
+  xterm -hold -e "roslaunch caric_mission run_mbs.launch" & sleep 1
+
+  sleep 30
+  xterm -hold -e "roslaunch exploration_manager test_all_mbs.launch" & sleep 1
+  sleep 1400 
+ rosnode kill -a
+ sleep 5 
+ killall -9 gzserver
+ killall xterm
+ sleep 10 

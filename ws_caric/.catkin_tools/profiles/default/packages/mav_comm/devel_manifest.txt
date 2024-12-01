@@ -1,0 +1,2 @@
+rotors_simulator/mav_comm/mav_comm
+/root/ws_caric/devel/.private/mav_comm/cmake.lock /root/ws_caric/devel/./cmake.lock

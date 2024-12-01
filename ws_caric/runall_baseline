@@ -1,0 +1,119 @@
+#!bin/bash
+
+
+sleep 10
+ roslaunch caric_baseline run.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+ roslaunch caric_baseline run.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+ roslaunch caric_baseline run.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+
+
+ sleep 10 
+roslaunch caric_baseline run.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+
+  sleep 10 
+roslaunch caric_baseline run.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+
+  sleep 10 
+roslaunch caric_baseline run.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+
+
+sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+ sleep 10
+roslaunch caric_baseline run.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+
+
+# # mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_baseline100
+
+# sleep 10
+#  roslaunch caric_baseline run.launch scenario:="mbs" 
+#   sleep 10 
+#  killall -9 gzserver
+#  sleep 10 
+# roslaunch caric_baseline run.launch scenario:="hangar"
+#  sleep 10 
+#  killall -9 gzserver
+# sleep 10
+# roslaunch caric_baseline run.launch scenario:="crane"
+#  sleep 10 
+#  killall -9 gzserver
+#   sleep 10 
+# # mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_baseline200
+
+# sleep 10
+#  roslaunch caric_baseline run.launch scenario:="mbs" 
+#   sleep 10 
+#  killall -9 gzserver
+#  sleep 10 
+# roslaunch caric_baseline run.launch scenario:="hangar"
+#  sleep 10 
+#  killall -9 gzserver
+# sleep 10
+# roslaunch caric_baseline run.launch scenario:="crane"
+#  sleep 10 
+#  killall -9 gzserver
+#   sleep 10 
+# # mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_baseline300
+
+bash runall_star

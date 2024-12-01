@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<launch>
+
+<arg name="drone_name" default="firefly" />
+<!-- <arg name="sim_type" default="vinsfusion_dji_mini" /> -->
+<arg name="sim_type" default="vicon_dji_mini" />
+
+<!-- <arg name="odom_topic" default="/msf_core/odometry" /> -->
+
+<!-- <arg name="odom_topic" default="/vins_estimator/odom_correct" /> -->
+<arg name="odom_topic" default="vins_estimator/odometry" />
+<arg name="trajectory_topic" default="/firefly/command/trajectory" />
+
+<arg name="enable_thrust_control" default="false" />
+<arg name="fake_odom" default="false" />
+
+  <group ns="$(arg drone_name)">
+
+    <node pkg="dji_sdk" type="dji_sdk_node" name="dji_sdk" output="screen">
+      <!-- node parameters -->
+      <!--<param name="serial_name" type="string" value="/dev/ttyUSB0"/> -->
+       <param name="serial_name" type="string" value="/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0"/>
+      <!--<param name="baud_rate" type="int" value="1000000"/>-->
+      <param name="baud_rate" type="int" value="921600"/>
+      <param name="app_id" type="int" value="1034867"/>
+      <param name="app_version" type="int" value="1"/>
+      <param name="align_time" type="bool" value="false"/>
+      <param name="enc_key" type="string" value="4bd68647ed617b09c4f16eaca4a7571e84a9b706fcc4f2ae6d4c5f1c843bbbac"/>
+      <param name="use_broadcast" type="bool" value="false"/>
+    </node>
+
+    <!-- Configuring control package-->
+    <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+        <param name="frame_id" type="string" value="world" />
+        <param name="sim_type" type="string" value="$(arg sim_type)" />
+        <param name="mpc_sim" type="bool" value="false" />
+        <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+        <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+    </node>
+    
+
+    <node pkg="ubplanner_bridge" type="ubplanner_bridge"
+          args="uav_link" name="ubplanner_bridge" output="screen">  
+          <param name="map_orig_lat" type="double" value="1.34300" />
+          <param name="map_orig_lon" type="double" value="103.68017" />  
+          <param name="global_gps_ref" type="bool" value="false" />  
+          <param name="sim_type" type="string" value="$(arg sim_type)" />  
+          <param name="manual_enable" type="bool" value="false" />  
+          <param name="manual_throttle_low" type="double" value="0.0" />  
+          <param name="manual_throttle_high" type="double" value="100.0" />  
+          <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />          
+          <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+          <!-- <remap from="/firefly/command/trajectory" to="$(arg trajectory_topic)" />         -->
+     </node>
+
+    <group if="$(arg fake_odom)">
+        <node pkg="ubplanner_bridge" type="fake_odom_dji"
+          args="fake_odom_dji" name="fake_odom_dji" output="screen">
+          <param name="fake_odom_initial_x" type="double" value="0" />
+          <param name="fake_odom_initial_y" type="double" value="-0" />
+          <param name="fake_odom_initial_z" type="double" value="0.0" />
+          <param name="fake_odom_initial_yaw" type="double" value="0" />
+          <param name="sim_type" type="string" value="$(arg sim_type)" />        
+          <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+
+     </node>  
+    </group>s 
+
+  </group>
+
+</launch>

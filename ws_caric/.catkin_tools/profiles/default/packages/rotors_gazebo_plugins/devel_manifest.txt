@@ -1,0 +1,23 @@
+rotors_simulator/rotors_gazebo_plugins
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/cmake.lock /root/ws_caric/devel/./cmake.lock
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/share/rotors_gazebo_plugins/cmake/rotors_gazebo_pluginsConfig-version.cmake /root/ws_caric/devel/share/rotors_gazebo_plugins/cmake/rotors_gazebo_pluginsConfig-version.cmake
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/share/rotors_gazebo_plugins/cmake/rotors_gazebo_pluginsConfig.cmake /root/ws_caric/devel/share/rotors_gazebo_plugins/cmake/rotors_gazebo_pluginsConfig.cmake
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/libgazebo_geotagged_images_plugin.so /root/ws_caric/devel/lib/libgazebo_geotagged_images_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_pressure_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_pressure_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_lidar_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_lidar_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_magnetometer_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_magnetometer_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_octomap_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_octomap_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_controller_interface.so /root/ws_caric/devel/lib/librotors_gazebo_controller_interface.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_multirotor_base_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_multirotor_base_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_servo_model.so /root/ws_caric/devel/lib/librotors_gazebo_servo_model.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_gps_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_gps_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/libLiftDragPlugin.so /root/ws_caric/devel/lib/libLiftDragPlugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_bag_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_bag_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_fw_dynamics_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_fw_dynamics_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_wind_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_wind_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_imu_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_imu_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_ppcom_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_ppcom_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_motor_model.so /root/ws_caric/devel/lib/librotors_gazebo_motor_model.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_odometry_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_odometry_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/librotors_gazebo_ros_interface_plugin.so /root/ws_caric/devel/lib/librotors_gazebo_ros_interface_plugin.so
+/root/ws_caric/devel/.private/rotors_gazebo_plugins/lib/pkgconfig/rotors_gazebo_plugins.pc /root/ws_caric/devel/lib/pkgconfig/rotors_gazebo_plugins.pc

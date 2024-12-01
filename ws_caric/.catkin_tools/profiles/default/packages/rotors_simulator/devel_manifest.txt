@@ -1,0 +1,2 @@
+rotors_simulator/rotors_simulator
+/root/ws_caric/devel/.private/rotors_simulator/cmake.lock /root/ws_caric/devel/./cmake.lock

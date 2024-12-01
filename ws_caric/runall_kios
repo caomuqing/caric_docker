@@ -1,0 +1,153 @@
+#!bin/bash
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final901
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final902
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final903
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final904
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final905
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final906
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final907
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final908
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final909
+
+sleep 10
+ roslaunch kios_solution run_solution.launch scenario:="mbs" 
+  sleep 10 
+ killall -9 gzserver
+ sleep 10 
+roslaunch kios_solution run_solution.launch scenario:="hangar"
+ sleep 10 
+ killall -9 gzserver
+sleep 10
+roslaunch kios_solution run_solution.launch scenario:="crane"
+ sleep 10 
+ killall -9 gzserver
+  sleep 10 
+mv /root/ws_caric/src/caric_mission/logs /root/ws_caric/src/caric_mission/logs_final/logs_kios_final910
+
+# bash runall_GDUT

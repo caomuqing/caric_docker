@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/api/nlopt.h
+stddef.h
+-
+
+/root/ws_caric/src/star_planner/nlopt-2.7.1/test/t_tutorial.cxx
+iostream
+-
+vector
+-
+string
+-
+cmath
+-
+iomanip
+-
+nlopt.hpp
+-
+
+nlopt.hpp
+nlopt.h
+-
+vector
+-
+stdexcept
+-
+new
+-
+cstdlib
+-
+cstring
+-
+cmath
+-
+

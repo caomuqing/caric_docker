@@ -1,0 +1,199 @@
+  
+<launch>
+<arg name="odom_topic" default="unity/odom" />
+
+<arg name="enable_thrust_control" default="false" />
+<arg name="sim_type" default="unity" />
+
+  <arg name="mav_name" default="firefly" />
+  <arg name="namespace" default="$(arg mav_name)"/> 
+  <group ns="$(arg namespace)1">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />  
+
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+<!--   <node respawn="false" pkg="traj_gennav" type="traj_gennav_node" name="traj_gennav" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="desired_distance" type="double" value="2.0" />
+      <param name="path_from_message" type="bool" value="true" />
+      <param name="sim_type" type="string" value="none" />
+      <rosparam file="$(find traj_gennav)/paths/path.yaml"/>   
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />  
+      
+  </node> -->
+
+  </group>
+
+
+  <group ns="$(arg namespace)2">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />  
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>
+
+  <group ns="$(arg namespace)3">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>  
+
+  <group ns="$(arg namespace)4">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>  
+
+    <group ns="$(arg namespace)5">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>  
+
+    <group ns="$(arg namespace)6">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+<!--   <node respawn="false" pkg="traj_gennav" type="traj_gennav_node" name="traj_gennav" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="desired_distance" type="double" value="2.0" />
+      <param name="path_from_message" type="bool" value="true" />
+      <param name="sim_type" type="string" value="none" />
+      <rosparam file="$(find traj_gennav)/paths/path.yaml"/>   
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+      
+  </node> -->
+
+  </group>  
+
+    <group ns="$(arg namespace)7">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>  
+
+    <group ns="$(arg namespace)8">
+
+  <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+      <param name="frame_id" type="string" value="world" />
+      <param name="sim_type" type="string" value="$(arg sim_type)" />
+      <param name="mpc_sim" type="bool" value="false" />
+      <param name="enable_thrust_control" type="bool" value="$(arg enable_thrust_control)" />      
+      <remap from="vins_estimator/odometry" to="$(arg odom_topic)" /> 
+      <remap from="/firefly/command/roll_pitch_yawrate_thrust" to="command/roll_pitch_yawrate_thrust" />  
+      <remap from="/firefly/command/trajectory" to="command/trajectory" />         
+  </node>
+
+  <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller" type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+    <remap from="odometry" to="$(arg odom_topic)" />
+    <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+  </node>
+
+  <!-- Configuring control package-->
+
+  </group>    
+</launch>

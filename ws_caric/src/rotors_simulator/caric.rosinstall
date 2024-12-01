@@ -1,0 +1,3 @@
+- git: {local-name: rotors_simulator, uri: 'https://github.com/ntu-aris/rotors_simulator.git'}
+- git: {local-name: unicon, uri: 'https://github.com/ntu-aris/unicon.git', version: 'caric'}
+- git: {local-name: traj_gennav, uri: 'https://github.com/ntu-aris/traj_gennav.git', version: 'caric'}

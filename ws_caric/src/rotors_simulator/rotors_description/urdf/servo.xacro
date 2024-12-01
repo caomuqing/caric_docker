@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:macro name="servo"
+        params="namespace parent mass_servo suffix rotating_period *origin *inertia">
+        <joint name="${namespace}/servo${suffix}_joint" type="revolute">
+            <xacro:insert_block name="origin" />
+            <axis xyz="1 0 0" />
+            <parent link="${parent}" />
+            <child link="${namespace}/servo${suffix}" />
+            <limit effort="3" velocity="1.57079632679" lower="-1.57079632679" upper="1.57079632679"/>
+        </joint>
+        <link name="${namespace}/servo${suffix}">
+            <inertial>
+                <mass value="${mass_servo}" /> <!-- [kg] -->
+                <xacro:insert_block name="inertia" />
+            </inertial>
+            <!-- <visual>
+                <geometry>
+                    <mesh filename="package://rotors_description/meshes/propeller_cw.dae"
+                          scale="0.01 0.01 0.01" />
+                </geometry>
+            </visual> -->
+            <collision>
+                <geometry>
+                    <cylinder length="0.01" radius="0.01" /> <!-- [m] -->
+                </geometry>
+            </collision>
+        </link>
+        <gazebo>
+            <plugin name="${namespace}_servo_model"
+                filename="librotors_gazebo_servo_model.so">
+                <namespace>${namespace}</namespace>
+                <jointName>${namespace}/servo${suffix}_joint</jointName>
+                <linkName>${namespace}/servo${suffix}</linkName>
+                <rotatingPeriod>${rotating_period}</rotatingPeriod>
+            </plugin>
+        </gazebo>
+        <gazebo reference="${namespace}/servo${suffix}">
+            <material>Gazebo/Blue</material>
+        </gazebo>
+    </xacro:macro>
+</robot>

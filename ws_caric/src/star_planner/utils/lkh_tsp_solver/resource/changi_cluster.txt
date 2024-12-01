@@ -1,0 +1,17 @@
+NAME : single_frontier.2020392.tour
+COMMENT : Length = 2020392
+COMMENT : Found by LKH [Keld Helsgaun] Tue Nov 21 16:28:54 2023
+TYPE : TOUR
+DIMENSION : 9
+TOUR_SECTION
+1
+2
+3
+7
+4
+5
+8
+6
+9
+-1
+EOF

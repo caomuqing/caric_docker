@@ -1,0 +1,8 @@
+prefix=/home/ztd/ws_caric/src/vision_create_11_20/build/devel
+
+Name: vision_create_new
+Description: Description of vision_create_new
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

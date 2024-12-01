@@ -1,0 +1,114 @@
+<launch>
+    <arg name="odom_topic"            default="ground_truth/odometry" />
+
+    <arg name="enable_thrust_control" default="false" />
+    <arg name="sim_type"              default="rotors" />
+
+    <arg name="mav_name"              default="firefly" />
+    <arg name="namespace"             default="$(arg mav_name)" />
+    <arg name="model"                 default="$(find rotors_description)/urdf/caric_firefly_base.xacro" />
+    
+    <arg name="ppcom_id"              default="firefly" />
+    <arg name="ppcom_config"          default="$(find rotors_description)/ppcom_network/caric_network.txt" />
+
+    <arg name="world_name"            default="$(find rotors_gazebo)/worlds/city12_tiltedbuildings.world" />
+    <arg name="enable_logging"        default="false" />
+    <arg name="enable_ground_truth"   default="true" />
+    <!-- <arg name="log_file" default="$(arg mav_name)" /> -->
+    <arg name="debug"                 default="false" />
+    <arg name="gui"                   default="true" />
+    <arg name="paused"                default="false" />
+    <arg name="frame_id"              default="odom" />
+    <!-- The following line causes gzmsg and gzerr messages to be printed to the console
+    (even when Gazebo is started through roslaunch) -->
+    <arg name="verbose"               default="false" />
+
+    <arg name="start_x"               default="0.0" />
+    <arg name="start_y"               default="0.0" />
+
+    <!-- Path file -->
+    <arg name="path_file"             default="$(find traj_gennav)/paths/path.yaml" />
+
+    <!-- <env name="GAZEBO_MODEL_PATH"     value="${GAZEBO_MODEL_PATH}:$(find rotors_gazebo)/models" />
+    <env name="GAZEBO_RESOURCE_PATH"  value="${GAZEBO_RESOURCE_PATH}:$(find rotors_gazebo)/models" />
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        
+        <arg name="world_name"        value="$(arg world_name)" />
+        <arg name="debug"             value="$(arg debug)" />
+        <arg name="paused"            value="$(arg paused)" />
+        <arg name="gui"               value="$(arg gui)" />
+        <arg name="verbose"           value="$(arg verbose)" />
+
+    </include> -->
+
+
+
+    <group ns="$(arg namespace)">
+
+
+        <include file="$(find rotors_gazebo)/launch/spawn_mav.launch">
+            
+            <arg name="mav_name"            value="$(arg namespace)" />
+            <arg name="model"               value="$(arg model)" />
+            <arg name="enable_logging"      value="$(arg enable_logging)" />
+            <arg name="enable_ground_truth" value="$(arg enable_ground_truth)" />
+            <arg name="log_file"            value="$(arg namespace)" />
+            <arg name="x"                   value="$(arg start_x)" />
+            <arg name="y"                   value="$(arg start_y)" />
+            <arg name="ppcom_id"            value="$(arg ppcom_id)" />
+            <arg name="ppcom_config"        value="$(arg ppcom_config)" />
+            
+
+        </include>
+
+
+        <node respawn="false" pkg="unicon" type="unicon" name="unicon" output="screen">
+            
+            <param name="frame_id"              type="string"  value="world" />
+            <param name="sim_type"              type="string"  value="$(arg sim_type)" />
+            <param name="mpc_sim"               type="bool"    value="false" />
+            <param name="enable_thrust_control" type="bool"    value="$(arg enable_thrust_control)" />
+
+            <remap from="vins_estimator/odometry"
+                   to="$(arg odom_topic)" />
+            <remap from="/firefly/command/roll_pitch_yawrate_thrust"
+                   to="command/roll_pitch_yawrate_thrust" />
+            <remap from="/firefly/command/trajectory"
+                   to="command/trajectory" />
+            <remap from="/nominal_path"
+                   to="/$(arg mav_name)/command/trajectory" />
+
+        </node>
+
+
+
+        <node name="PID_attitude_controller" pkg="mav_lowlevel_attitude_controller"
+              type="mav_pid_attitude_controller_node" respawn="true" clear_params="true" output="screen">
+            
+            <rosparam file="$(find mav_lowlevel_attitude_controller)/resources/PID_attitude_$(arg mav_name).yaml" />
+            <remap from="odometry" to="$(arg odom_topic)" />
+
+        </node>
+
+
+
+        <node respawn="false" pkg="traj_gennav" type="traj_gennav_node" name="traj_gennav" output="screen">
+            
+            <param name="frame_id"          type="string" value="world" />
+            <param name="desired_distance"  type="double" value="2.0" />
+            <param name="path_from_message" type="bool"   value="true" />
+            <param name="sim_type"          type="string" value="none" />
+            
+            <rosparam file="$(arg path_file)" />
+            <remap from="vins_estimator/odometry"     to="$(arg odom_topic)" />
+            <remap from="/firefly/command/trajectory" to="command/trajectory" />
+
+        </node>
+
+
+
+    </group>
+
+    <!-- <node pkg="rviz" type="rviz" name="rviz11" args="-d $(find traj_gennav)/rviz/rviz.rviz" /> -->
+
+</launch>

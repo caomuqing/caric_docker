@@ -1,0 +1,8 @@
+vision_create_new
+/root/ws_caric/devel/.private/vision_create_new/cmake.lock /root/ws_caric/devel/./cmake.lock
+/root/ws_caric/devel/.private/vision_create_new/share/vision_create_new/cmake/vision_create_newConfig.cmake /root/ws_caric/devel/share/vision_create_new/cmake/vision_create_newConfig.cmake
+/root/ws_caric/devel/.private/vision_create_new/share/vision_create_new/cmake/vision_create_newConfig-version.cmake /root/ws_caric/devel/share/vision_create_new/cmake/vision_create_newConfig-version.cmake
+/root/ws_caric/devel/.private/vision_create_new/lib/liboctreelib.so /root/ws_caric/devel/lib/liboctreelib.so
+/root/ws_caric/devel/.private/vision_create_new/lib/libpclprolib.so /root/ws_caric/devel/lib/libpclprolib.so
+/root/ws_caric/devel/.private/vision_create_new/lib/pkgconfig/vision_create_new.pc /root/ws_caric/devel/lib/pkgconfig/vision_create_new.pc
+/root/ws_caric/devel/.private/vision_create_new/lib/vision_create_new/process_pcd /root/ws_caric/devel/lib/vision_create_new/process_pcd
