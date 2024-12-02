@@ -1,7 +1,0 @@
-rotors_simulator/rotors_joy_interface
-/root/ws_caric/devel/.private/rotors_joy_interface/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/rotors_joy_interface/share/rotors_joy_interface/cmake/rotors_joy_interfaceConfig.cmake /root/ws_caric/devel/share/rotors_joy_interface/cmake/rotors_joy_interfaceConfig.cmake
-/root/ws_caric/devel/.private/rotors_joy_interface/share/rotors_joy_interface/cmake/rotors_joy_interfaceConfig-version.cmake /root/ws_caric/devel/share/rotors_joy_interface/cmake/rotors_joy_interfaceConfig-version.cmake
-/root/ws_caric/devel/.private/rotors_joy_interface/lib/pkgconfig/rotors_joy_interface.pc /root/ws_caric/devel/lib/pkgconfig/rotors_joy_interface.pc
-/root/ws_caric/devel/.private/rotors_joy_interface/lib/rotors_joy_interface/rotors_joy_control_interface /root/ws_caric/devel/lib/rotors_joy_interface/rotors_joy_control_interface
-/root/ws_caric/devel/.private/rotors_joy_interface/lib/rotors_joy_interface/rotors_joy_interface /root/ws_caric/devel/lib/rotors_joy_interface/rotors_joy_interface

@@ -1,7 +1,0 @@
-caric_baseline
-/root/ws_caric/devel/.private/caric_baseline/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/caric_baseline/share/caric_baseline/cmake/caric_baselineConfig-version.cmake /root/ws_caric/devel/share/caric_baseline/cmake/caric_baselineConfig-version.cmake
-/root/ws_caric/devel/.private/caric_baseline/share/caric_baseline/cmake/caric_baselineConfig.cmake /root/ws_caric/devel/share/caric_baseline/cmake/caric_baselineConfig.cmake
-/root/ws_caric/devel/.private/caric_baseline/lib/caric_baseline/baseline_planner /root/ws_caric/devel/lib/caric_baseline/baseline_planner
-/root/ws_caric/devel/.private/caric_baseline/lib/caric_baseline/gcs_task /root/ws_caric/devel/lib/caric_baseline/gcs_task
-/root/ws_caric/devel/.private/caric_baseline/lib/pkgconfig/caric_baseline.pc /root/ws_caric/devel/lib/pkgconfig/caric_baseline.pc

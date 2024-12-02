@@ -1,6 +1,0 @@
-star_planner/bspline_opt
-/root/ws_caric/devel/.private/bspline_opt/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/bspline_opt/share/bspline_opt/cmake/bspline_optConfig-version.cmake /root/ws_caric/devel/share/bspline_opt/cmake/bspline_optConfig-version.cmake
-/root/ws_caric/devel/.private/bspline_opt/share/bspline_opt/cmake/bspline_optConfig.cmake /root/ws_caric/devel/share/bspline_opt/cmake/bspline_optConfig.cmake
-/root/ws_caric/devel/.private/bspline_opt/lib/libbspline_opt.so /root/ws_caric/devel/lib/libbspline_opt.so
-/root/ws_caric/devel/.private/bspline_opt/lib/pkgconfig/bspline_opt.pc /root/ws_caric/devel/lib/pkgconfig/bspline_opt.pc

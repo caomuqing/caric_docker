@@ -1,9 +1,0 @@
-rotors_simulator/rotors_control
-/root/ws_caric/devel/.private/rotors_control/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/rotors_control/share/rotors_control/cmake/rotors_controlConfig-version.cmake /root/ws_caric/devel/share/rotors_control/cmake/rotors_controlConfig-version.cmake
-/root/ws_caric/devel/.private/rotors_control/share/rotors_control/cmake/rotors_controlConfig.cmake /root/ws_caric/devel/share/rotors_control/cmake/rotors_controlConfig.cmake
-/root/ws_caric/devel/.private/rotors_control/lib/libroll_pitch_yawrate_thrust_controller.so /root/ws_caric/devel/lib/libroll_pitch_yawrate_thrust_controller.so
-/root/ws_caric/devel/.private/rotors_control/lib/liblee_position_controller.so /root/ws_caric/devel/lib/liblee_position_controller.so
-/root/ws_caric/devel/.private/rotors_control/lib/pkgconfig/rotors_control.pc /root/ws_caric/devel/lib/pkgconfig/rotors_control.pc
-/root/ws_caric/devel/.private/rotors_control/lib/rotors_control/roll_pitch_yawrate_thrust_controller_node /root/ws_caric/devel/lib/rotors_control/roll_pitch_yawrate_thrust_controller_node
-/root/ws_caric/devel/.private/rotors_control/lib/rotors_control/lee_position_controller_node /root/ws_caric/devel/lib/rotors_control/lee_position_controller_node

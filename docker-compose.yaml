@@ -1,18 +1,25 @@
 services:
   ros_caric:
     image: ros_caric
-    container_name: ros_caric_container
+    container_name: ros_caric_container_1
     build:
       context: .
       dockerfile: Dockerfile
-    command: >
-          bash -c "sleep infinity"
-    #   bash -c "apt-get update && 
-    #   cd /root/ws_caric &&       
-    #   rosdep install --from-paths src --ignore-src -r -y && 
-    #   touch /root/ws_caric/src/rotors_simulator/rotors_hil_interface/CATKIN_IGNORE &&
-    #   source /opt/ros/noetic/setup.bash && catkin build traj_gennav &&
-    #   catkin build && sleep infinity"
+    command: >          
+      bash -c "apt-get update && 
+      if [ -d /root/libraries/LKH-3.0.6 ]; then
+        cd /root/libraries/LKH-3.0.6 && make && cp LKH /usr/local/bin;
+      else
+        echo 'Directory /root/libraries/LKH-3.0.6 not found'; exit 1;
+      fi &&
+      cd /root/ws_caric &&       
+      rosdep install --from-paths src --ignore-src -r -y && 
+      touch /root/ws_caric/src/rotors_simulator/rotors_hil_interface/CATKIN_IGNORE &&
+      source /opt/ros/noetic/setup.bash && catkin build traj_gennav &&
+      catkin build && 
+      echo 'DOCKER RUNNING. Do not exit this terminal and open a new one to run command \"docker exec -it ros_caric_container_1 bash\"' &&
+      sleep infinity"
+    # bash -c "sleep infinity"
     environment:
       - ACCEPT_EULA=Y
       - DISPLAY
@@ -30,8 +37,9 @@ services:
       - $HOME/.Xauthority:/root/.Xauthority
       - /tmp/.X11-unix:/tmp/.X11-unix
       # developer stuff
-      - /var/run/docker.sock:/var/run/docker.sock # access docker API for container name    
+      # - /var/run/docker.sock:/var/run/docker.sock # access docker API for container name    
       - ./ws_caric:/root/ws_caric:rw  # Mount your local src directory
+      - ./libraries:/root/libraries:rw
     # runtime: nvidia
     privileged: true
     stdin_open: true

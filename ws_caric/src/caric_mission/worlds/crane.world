@@ -73,7 +73,7 @@
     <physics name='default_physics' default='0' type='ode'>
       <max_step_size>0.0025</max_step_size>
       <real_time_factor>1.0</real_time_factor>
-      <real_time_update_rate>200</real_time_update_rate>
+      <real_time_update_rate>400</real_time_update_rate>
     </physics>
     <plugin name='gazebo_octomap' filename='librotors_gazebo_octomap_plugin.so'>
       <octomapPubTopic>world/octomap</octomapPubTopic>

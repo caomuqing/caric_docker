@@ -1,6 +1,0 @@
-star_planner/poly_traj
-/root/ws_caric/devel/.private/poly_traj/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/poly_traj/share/poly_traj/cmake/poly_trajConfig.cmake /root/ws_caric/devel/share/poly_traj/cmake/poly_trajConfig.cmake
-/root/ws_caric/devel/.private/poly_traj/share/poly_traj/cmake/poly_trajConfig-version.cmake /root/ws_caric/devel/share/poly_traj/cmake/poly_trajConfig-version.cmake
-/root/ws_caric/devel/.private/poly_traj/lib/libpoly_traj.so /root/ws_caric/devel/lib/libpoly_traj.so
-/root/ws_caric/devel/.private/poly_traj/lib/pkgconfig/poly_traj.pc /root/ws_caric/devel/lib/pkgconfig/poly_traj.pc

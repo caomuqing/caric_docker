@@ -30,8 +30,18 @@ RUN sudo apt-get update && \
                      python-is-python3 \
                      python3-pip \
                      ros-noetic-octomap-server \
+                     libarmadillo-dev \
+                     libelf-dev \
+                     libdw-dev 
 
 RUN pip3 install scipy
+
+RUN mkdir -p /root/library && \
+    cd /root/library && \
+    wget https://github.com/stevengj/nlopt/archive/v2.7.1.tar.gz && \
+    tar -xzf v2.7.1.tar.gz && \
+    cd nlopt-2.7.1 && mkdir build && cd build && cmake .. && \
+    make && make install
 
 # Clone additional ROS packages from GitHub (replace these URLs with packages you need)
 # Set up the catkin workspace and clone additional packages

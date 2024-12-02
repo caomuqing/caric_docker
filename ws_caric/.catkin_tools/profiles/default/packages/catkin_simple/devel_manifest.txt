@@ -1,6 +1,0 @@
-rotors_simulator/catkin_simple
-/root/ws_caric/devel/.private/catkin_simple/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/catkin_simple/share/catkin_simple/cmake/catkin_simpleConfig.cmake /root/ws_caric/devel/share/catkin_simple/cmake/catkin_simpleConfig.cmake
-/root/ws_caric/devel/.private/catkin_simple/share/catkin_simple/cmake/catkin_simpleConfig-version.cmake /root/ws_caric/devel/share/catkin_simple/cmake/catkin_simpleConfig-version.cmake
-/root/ws_caric/devel/.private/catkin_simple/share/catkin_simple/cmake/catkin_simple-extras.cmake /root/ws_caric/devel/share/catkin_simple/cmake/catkin_simple-extras.cmake
-/root/ws_caric/devel/.private/catkin_simple/lib/pkgconfig/catkin_simple.pc /root/ws_caric/devel/lib/pkgconfig/catkin_simple.pc

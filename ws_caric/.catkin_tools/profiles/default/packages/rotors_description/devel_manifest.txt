@@ -1,5 +1,0 @@
-rotors_simulator/rotors_description
-/root/ws_caric/devel/.private/rotors_description/cmake.lock /root/ws_caric/devel/./cmake.lock
-/root/ws_caric/devel/.private/rotors_description/share/rotors_description/cmake/rotors_descriptionConfig-version.cmake /root/ws_caric/devel/share/rotors_description/cmake/rotors_descriptionConfig-version.cmake
-/root/ws_caric/devel/.private/rotors_description/share/rotors_description/cmake/rotors_descriptionConfig.cmake /root/ws_caric/devel/share/rotors_description/cmake/rotors_descriptionConfig.cmake
-/root/ws_caric/devel/.private/rotors_description/lib/pkgconfig/rotors_description.pc /root/ws_caric/devel/lib/pkgconfig/rotors_description.pc
