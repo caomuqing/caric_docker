@@ -1,0 +1,30 @@
+topics:
+  -
+    topic: /chatter  # Topic name on both ROS 1 and ROS 2
+    type: std_msgs/msg/String  # Type of topic to bridge
+    queue_size: 1  # Queue size
+
+  -
+    topic: /sentosa/command/gimbal  # Topic name on both ROS 1 and ROS 2
+    type: geometry_msgs/msg/Twist  # Type of topic to bridge
+    queue_size: 1  # Queue size
+  -
+    topic: /sentosa/gimbal  # Topic name on both ROS 1 and ROS 2
+    type: geometry_msgs/msg/TwistStamped  # Type of topic to bridge
+    queue_size: 1  # Queue size    
+    qos:
+      history: keep_last  # OR keep_all, then you can omit `depth` parameter below
+      depth: 10  # Only required when history == keep_last
+      reliability: reliable  # OR best_effort
+      durability: transient_local  # OR volatile
+      deadline:
+          secs: 10
+          nsecs: 2345
+      lifespan:
+          secs: 20
+          nsecs: 3456
+      liveliness: liveliness_system_default  # Values from https://design.ros2.org/articles/qos_deadline_liveliness_lifespan.html, eg. LIVELINESS_AUTOMATIC
+      liveliness_lease_duration:
+          secs: 40
+          nsecs: 5678    
+
