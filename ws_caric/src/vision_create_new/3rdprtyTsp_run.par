@@ -1,5 +1,0 @@
-PROBLEM_FILE = /home/ztd/ws_caric/src/vision_create_11_20/3rdprtyTsp_data.tsp
-OPTIMUM = 378032 
-PATCHING_C = 3
-PATCHING_A = 2
-TOUR_FILE = /home/ztd/ws_caric/src/vision_create_11_20/3rdprtyoutput.txt

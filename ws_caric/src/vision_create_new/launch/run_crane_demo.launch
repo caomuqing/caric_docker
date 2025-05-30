@@ -1,5 +1,0 @@
-<launch>
-	<node name="pclproc_node" pkg="vision_create" output="screen" type="process_pcd"  />
-	<include file="$(find caric_mission)/launch/run_crane.launch"/>
-    	
-</launch>

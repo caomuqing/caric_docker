@@ -1,4 +1,0 @@
-PROBLEM_FILE = /root/ws_caric/src/star_planner/utils/lkh_tsp_solver/resource/raffles_inertial.tsp
-GAIN23 = NO
-OUTPUT_TOUR_FILE =/root/ws_caric/src/star_planner/utils/lkh_tsp_solver/resource/raffles_inertial.txt
-RUNS = 1

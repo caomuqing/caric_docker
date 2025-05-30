@@ -1,3 +1,0 @@
-octomap_msgs/Octomap octomap
----
-geometry_msgs/Point[] points
