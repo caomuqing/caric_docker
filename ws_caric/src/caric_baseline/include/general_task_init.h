@@ -636,49 +636,6 @@ public:
         // cout<<result<<endl;
         return result;
     }
-    string generate_inv_string_version() const
-    {
-        string result = "";
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                result = result + to_string(vertice[i][j]) + ",";
-            }
-        }
-        for (int i = 0; i < 9; i++)
-        {
-            result = result + to_string(rotation_matrix(i)) + ",";
-        }
-        for (int j = 0; j < 3; j++)
-        {
-            result = result + to_string(center[j]) + ",";
-        }
-        for (int j = 0; j < 3; j++)
-        {
-            result = result + to_string(size_vector[j]) + ",";
-        }
-
-        for (int i = 0; i < 2; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                result = result + to_string(global_in_out[i][j]) + ",";
-            }
-        }
-        result = result + to_string(xsize) + ",";
-        result = result + to_string(ysize) + ",";
-        result = result + to_string(zsize) + ",";
-        result = result + to_string(id) + ",";
-        result = result + to_string(1-state) + ",";
-        result = result + to_string(volume) + ",";
-        result = result + to_string(use_x) + ",";
-        result = result + to_string(use_y) + ",";
-        result = result + to_string(use_z) + ",";
-        // cout<<result<<endl;
-        return result;
-    }
-
     
 private:
     vector<Eigen::Vector3d> vertice; 
@@ -1049,18 +1006,19 @@ class gcs_task_assign{
         }else if(team_info[0].size()>0&&team_info[1].size()>0)
         {
             double factor=double(team_info[0].size())/double(team_info[0].size()+team_info[1].size());
-            cout<<"factor:"<<to_string(factor)<<endl;
+            cout<<"factor"<<to_string(factor)<<endl;
             for(int j=0;j<BFS_result.size();j++)
             {
                 volum_path +=BFS_result[j].getVolume();
-                if (abs(volum_path / volumn_total - factor) < 0.05)
+                if (abs(volum_path / volumn_total - factor) <= 0.05)
                 {
                     clip_index = j;
                     clip_in_boundingbox = false;
                     break;
                 }
-                if (volum_path / volumn_total - factor >= 0.05)
+                if (volum_path / volumn_total - factor > 0.05)
                 {
+                
                     clip_index = j;
                     clip_in_boundingbox = true;
                     double volum_more = volum_path - volumn_total * factor;
@@ -1137,21 +1095,11 @@ class gcs_task_assign{
         result = result + "path_size" + "," + "1" + "," + to_string(output_path[1].size()) + ",";
         for (int i = 0; i < 2; i++)
         {
-            if(i==0){
-                for (int j = 0; j < output_path[i].size(); j++)
-                {
-                    result = result + ";";
-                    result = result + output_path[i][j].generate_string_version();
-                }
-            }else{
-                for (int j = output_path[i].size()-1; j>=0; j--)
-                {
-                    result = result + ";";
-                    result = result + output_path[i][j].generate_inv_string_version();
-                }
-
+            for (int j = 0; j < output_path[i].size(); j++)
+            {
+                result = result + ";";
+                result = result + output_path[i][j].generate_string_version();
             }
-
         }
         finish_massage_generate=true;
 

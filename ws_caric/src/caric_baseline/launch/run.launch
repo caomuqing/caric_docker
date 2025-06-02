@@ -1,10 +1,10 @@
 <launch>
 
-    <arg name="scenario" default="mbs" />
-    <!-- <arg name="scenario" default="hangar" /> -->
-    <!-- <arg name="scenario" default="crane" /> -->
+    <arg name="manual_control" default="false" />
 
-    <!-- launch simulator -->
+    <arg name="scenario" default="mbs"/>
+
+    <!-- Launch the simulator -->
     <include file="$(find caric_mission)/launch/run_$(arg scenario).launch" />
     <!-- <include file="$(find caric_mission)/launch/run_hangar.launch"/> -->
     <!-- <include file="$(find caric_mission)/launch/run_crane.launch"/> -->
@@ -17,7 +17,7 @@
         
         <arg name="namespace"  default="jurong" />
 
-        <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" output="screen" launch-prefix="bash -c 'sleep 5; $0 $@'" >
+        <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" launch-prefix="bash -c 'sleep 5; $0 $@'" >
 
             <!-- Input topics -->
             <remap from="/cloud_inW"                   to="/$(arg namespace)/cloud_inW" />
@@ -65,7 +65,7 @@
         
         <arg name="namespace"  default="raffles" />
 
-        <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" output="screen" launch-prefix="bash -c 'sleep 5; $0 $@'">
+        <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" launch-prefix="bash -c 'sleep 5; $0 $@'" output="screen" >
             
             <!-- Input topics -->
             <remap from="/cloud_inW"                   to="/$(arg namespace)/cloud_inW" />
@@ -91,14 +91,17 @@
 
         <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" launch-prefix="bash -c 'sleep 5; $0 $@'" >
 
+            <!-- Input topics -->
             <remap from="/cloud_inW"                   to="/$(arg namespace)/cloud_inW" />
             <remap from="/nbr_odom_cloud"              to="/$(arg namespace)/nbr_odom_cloud" />
             <remap from="/firefly/gimbal"              to="/$(arg namespace)/gimbal" />
             <remap from="/ground_truth/odometry"       to="/$(arg namespace)/ground_truth/odometry" />
 
+            <!-- Control outputs -->
             <remap from="/firefly/command/gimbal"      to="/$(arg namespace)/command/gimbal" />
             <remap from="/firefly/command/trajectory"  to="/$(arg namespace)/command/trajectory" />
 
+            <!-- Vizualization -->
             <remap from="/firefly/map"                 to="/$(arg namespace)/map" />
             <remap from="/firefly/Nbr_mask"            to="/$(arg namespace)/Nbr_mask" />
             <remap from="/firefly/path_show"           to="/$(arg namespace)/path_show" />
@@ -112,14 +115,17 @@
 
         <node name="baseline_planner" pkg="caric_baseline" type="baseline_planner" launch-prefix="bash -c 'sleep 5; $0 $@'" >
 
+            <!-- Input topics -->
             <remap from="/cloud_inW"                   to="/$(arg namespace)/cloud_inW" />
             <remap from="/nbr_odom_cloud"              to="/$(arg namespace)/nbr_odom_cloud" />
             <remap from="/firefly/gimbal"              to="/$(arg namespace)/gimbal" />
             <remap from="/ground_truth/odometry"       to="/$(arg namespace)/ground_truth/odometry" />
 
+            <!-- Control outputs -->
             <remap from="/firefly/command/gimbal"      to="/$(arg namespace)/command/gimbal" />
             <remap from="/firefly/command/trajectory"  to="/$(arg namespace)/command/trajectory" />
 
+            <!-- Vizualization -->
             <remap from="/firefly/map"                 to="/$(arg namespace)/map" />
             <remap from="/firefly/Nbr_mask"            to="/$(arg namespace)/Nbr_mask" />
             <remap from="/firefly/path_show"           to="/$(arg namespace)/path_show" />

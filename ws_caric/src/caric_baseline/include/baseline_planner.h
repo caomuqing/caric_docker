@@ -217,7 +217,7 @@ public:
         initial_the_convert();
         interval = floor(map_shape.z() / team_size);
         cout << "Teamsize:"
-             << team_size << endl; // test
+             << "team_size" << endl; // test
         for (int i = 1; i < Teamsize_in; i++)
         {
             region_slice_layer.push_back(i * interval);
@@ -380,44 +380,11 @@ public:
         }
         if (search_direction.empty())
         {
-            // for(int x=index.x()-1;x<index.x()+2;x++){
-            //     for(int y=index.y()-1;y<index.y()+2;y++){
-            //         for(int z=index.z()-1;z<index.z()+2;z++){
-            //             if(x>=0&&y>=0&&z>=0&&x<map_shape.x()&&y<map_shape.y()&&z<map_shape.z()){
-            //                 if((abs(x-index.x())+abs(y-index.y()+abs(z-index.z()))<=2)){
-            //                     if(abs(x-index.x())+abs(y-index.y()+abs(z-index.z()))==0){
-            //                         continue;
-            //                     }else{
-            //                         visited_map[x][y][z] = 1;
-            //                     }
-            //                 }
-            //             }
-
-            //         }
-            //     }
-            // }
             visited_map[index.x()][index.y()][index.z()] = 1;
         }
         if(fabs(ros::Time::now().toSec()-time_start)>3)
         {
-            // for(int x=index.x()-1;x<index.x()+2;x++){
-            //     for(int y=index.y()-1;y<index.y()+2;y++){
-            //         for(int z=index.z()-1;z<index.z()+2;z++){
-            //             if(x>=0&&y>=0&&z>=0&&x<map_shape.x()&&y<map_shape.y()&&z<map_shape.z()){
-            //                 if((abs(x-index.x())+abs(y-index.y()+abs(z-index.z()))<=2)){
-            //                     if(abs(x-index.x())+abs(y-index.y()+abs(z-index.z()))==0){
-            //                         continue;
-            //                     }else{
-            //                         visited_map[x][y][z] = 1;
-            //                     }
-            //                 }
-            //             }
-
-            //         }
-            //     }
-            // }
             visited_map[index.x()][index.y()][index.z()] = 1;
-            search_direction.clear();
         }
         now_position_global = point;
         now_position_index = index;
@@ -1237,19 +1204,6 @@ public:
         return result;
     }
 
-    void move_to_nearest_safe_point(string name,Eigen::Vector3d target_point)
-    {
-        // yolo();
-        list<Eigen::Vector3i> path_index_temp;
-        Eigen::Vector3i target_index_temp=get_index(target_point);
-        path_index_temp=Dijkstra_search_safe(0,map_shape.z()-1,name,target_index_temp);
-        cout<<path_index_temp.size()<<endl;
-        // yolo();
-        path_index_temp.reverse();
-        path_index = path_index_temp;
-        generate_the_global_path();
-    }
-
 private:
     // communication part
     list<string> namelist;
@@ -1619,76 +1573,6 @@ private:
         // If the path is not found, return an empty list.
         return {};
     }
-
-        // Function to generate 3D layer search/path planning with 3D Dijkstra
-    list<Eigen::Vector3i> Dijkstra_search_safe(int layer, int upper, string myname,Eigen::Vector3i target_index)
-    {
-        vector<vector<vector<int>>> grid = map;
-        for (auto &name : namelist)
-        {
-            if (myname == name)
-            {
-                continue;
-            }
-            else
-            {
-                if (fabs(ros::Time::now().toSec() - local_dict[name].time) < 1||true)
-                {
-                    // cout<<"name:"<<name<<endl;
-                    if (local_dict[name].in_bounding_box)
-                    {
-                        // cout<<"pos insert"<<endl;
-                        Eigen::Vector3i tar = local_dict[name].position_index;
-                        grid[tar.x()][tar.y()][tar.z()] = 1;
-                    }
-                    if (local_dict[name].planning_in_bounding_box)
-                    {
-                        // cout<<"motion insert"<<endl;
-                        Eigen::Vector3i tar = local_dict[name].planning_index;
-                        grid[tar.x()][tar.y()][tar.z()] = 1;
-                    }
-                }
-            }
-        }
-        Eigen::Vector3i start = now_position_index;
-        vector<Vector3i> directions = {Vector3i(0, 1, 0), Vector3i(0, -1, 0), Vector3i(1, 0, 0), Vector3i(-1, 0, 0), Vector3i(0, 0, 1), Vector3i(0, 0, -1)};
-
-        // Initialize the queue and visited flag.
-        queue<list<Eigen::Vector3i>> q;
-        q.push({start});
-        vector<vector<vector<bool>>> visited(map_shape.x(), vector<vector<bool>>(map_shape.y(), vector<bool>(map_shape.z(), false)));
-        visited[start.x()][start.y()][start.z()] = true;
-
-        while (!q.empty())
-        {
-            list<Eigen::Vector3i> path = q.front();
-            q.pop();
-
-            Eigen::Vector3i curr = path.back();
-            // if (interest_map[curr.x()][curr.y()][curr.z()]==1&&visited_map[curr.x()][curr.y()][curr.z()]==1&&map[curr.x()][curr.y()][curr.z()]==0)
-            if((curr-target_index).norm()<0.1)
-            {
-                return path; // Found the path, return the complete path.
-            }
-
-            for (const auto &dir : directions)
-            {
-                int nextRow = curr.x() + dir.x();
-                int nextCol = curr.y() + dir.y();
-                int nextHeight = curr.z() + dir.z();
-                if (isValidMove(nextRow, nextCol, nextHeight,grid) && !visited[nextRow][nextCol][nextHeight] && nextHeight <= upper)
-                {
-                    list<Vector3i> newPath = path;
-                    newPath.push_back(Vector3i(nextRow, nextCol, nextHeight));
-                    q.push(newPath);
-                    visited[nextRow][nextCol][nextHeight] = true;
-                }
-            }
-        }
-        // If the path is not found, return an empty list.
-        return {};
-    }
-
     list<Eigen::Vector3i> Dijkstra_search_fly_in_xy(int lower, int upper, string myname)
     {
         vector<vector<vector<int>>> grid = map;
@@ -2145,16 +2029,15 @@ public:
             // fly home
             if (is_leader)
             {   
-                // yolo();
                 state = 0;
                 bool flag = false;
-                global_map.Astar_local(initial_position, namespace_, info_mannager.get_leader(), flag, false);
-                if (flag)
-                {
-                    global_map.move_to_nearest_safe_point(namespace_,latest_communicate_position);
-                }
+                global_map.Astar_local(initial_position, namespace_, info_mannager.get_leader(), flag, true);
                 get_way_point = update_target_waypoint();
                 path_show = global_map.get_path_show();
+                if (flag)
+                {
+                    initial_position.z()= initial_position.z()+2;
+                }
                 return;
             }
             else
@@ -2674,9 +2557,7 @@ public:
             }
         }
     }
-    void record_position(){
-        latest_communicate_position=now_global_position;
-    }
+
 private:
     int now_id = 0;
     int map_set_use = 0;
@@ -2688,7 +2569,7 @@ private:
     bool is_leader = false;
     vector<grid_map> map_set;
     grid_map global_map;
-    Eigen::Vector3d latest_communicate_position;
+
     int lowest_bound = 0;
     int highest_bound = 0;
 
@@ -3057,7 +2938,6 @@ private:
         if (pre_task == msg.data && pre_task != "")
         {
             map_initialise = true;
-            mm.record_position();
             return;
         }
 

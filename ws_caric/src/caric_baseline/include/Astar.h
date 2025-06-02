@@ -135,7 +135,7 @@ std::shared_ptr<ANode> AStar::findPathlong(std::shared_ptr<ANode> beg, std::shar
         if (iter2 != openlist.end())
             return *iter2;
         literate_num++;
-        if (literate_num > 5000)
+        if (literate_num > 50000)
         {
             return nullptr;
         }
@@ -360,12 +360,12 @@ void AStar::PrintAStarPath(Eigen::Vector3i sp, Eigen::Vector3i ep)
 list<Eigen::Vector3i> AStar::get_path(vector<vector<std::vector<int>>> m, Eigen::Vector3i sp, Eigen::Vector3i ep)
 {
     maps = m;
-    if(maps[sp.x()][sp.y()][sp.z()]>0){
-        cout<<"sp!=0"<<": "<<maps[sp.x()][sp.y()][sp.z()]<<endl;
-    }
-    if(maps[ep.x()][ep.y()][ep.z()]>0){
-        cout<<"ep!=0"<<": "<<maps[ep.x()][ep.y()][ep.z()]<<endl;
-    } //debug test
+    // if(maps[sp.x()][sp.y()][sp.z()]>0){
+    //     cout<<"sp!=0"<<": "<<maps[sp.x()][sp.y()][sp.z()]<<endl;
+    // }
+    // if(maps[ep.x()][ep.y()][ep.z()]>0){
+    //     cout<<"ep!=0"<<": "<<maps[ep.x()][ep.y()][ep.z()]<<endl;
+    // } //debug test
     if (sp == ep)
     {
         return {sp};
