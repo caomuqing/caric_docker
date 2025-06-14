@@ -38,6 +38,8 @@ FROM ros:humble-ros-base-jammy
 # Make sure bash catches errors (no need to chain commands with &&, use ; instead)
 SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-c"]
 
+# Install basic dependencies (ROS2 repos already configured in base image)
+RUN apt-get update && apt-get install -y curl gnupg lsb-release
 
 ###########################
 # 1.) Bring system up to the latest ROS desktop configuration
@@ -47,9 +49,10 @@ RUN apt-get -y upgrade
 RUN apt-get -y install ros-humble-desktop
 
 ###########################
-# 2.) Temporarily remove ROS2 apt repository
+# 2.) Temporarily remove ROS2 apt repository to avoid conflicts
 ###########################
-RUN mv /etc/apt/sources.list.d/ros2-latest.list /root/
+# Remove any existing ROS2 sources
+RUN rm -f /etc/apt/sources.list.d/*ros* || true
 RUN apt-get update
 
 ###########################
@@ -82,12 +85,13 @@ RUN if [[ $(uname -m) = "arm64" || $(uname -m) = "aarch64" ]]; then             
     fi
 
 ###########################
-# 6.) Restore the ROS2 apt repos and set compilation options.
-#   For example, to include ROS tutorial message types, pass
-#   "--build-arg ADD_ros_tutorials=1" to the docker build command.
+# 6.) Create ROS2 apt repository explicitly
 ###########################
-RUN mv /root/ros2-latest.list /etc/apt/sources.list.d/
-RUN apt-get -y update
+# Create the ROS2 sources list file
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/ros2.list && \
+    apt-get update
 
 # for ros-humble-example-interfaces:
 ARG ADD_ros_tutorials=1
@@ -275,7 +279,7 @@ RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 # Build the ros1_bridge package
 WORKDIR /root/ros1_bridge
 RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
-RUN sudo apt install -y ros-humble-domain-bridge
+RUN apt-get update && apt-get install -y ros-humble-domain-bridge
 RUN echo "source /root/ros1_bridge/install/setup.bash" >> ~/.bashrc
 
 # Set entrypoint to start a bash shell

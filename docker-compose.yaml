@@ -15,7 +15,11 @@ services:
       cd /root/ws_caric &&       
       rosdep install --from-paths src --ignore-src -r -y && 
       touch /root/ws_caric/src/rotors_simulator/rotors_hil_interface/CATKIN_IGNORE &&
-      source /opt/ros/noetic/setup.bash && catkin build traj_gennav &&
+      source /opt/ros/noetic/setup.bash && 
+      catkin build mav_msgs mav_system_msgs mav_state_machine_msgs &&
+      catkin build caric_mission &&
+      catkin build traj_gennav &&
+      catkin build caric_baseline &&
       catkin build && 
       echo 'DOCKER RUNNING. Do not exit this terminal and open a new one to run command \"docker exec -it ros_caric_container_1 bash\"' &&
       sleep infinity"
