@@ -308,17 +308,17 @@ RUN ROS1_LIBS="libxmlrpcpp.so";                                                 
 ENV ROS_MASTER_URI=http://localhost:11311
 
 # Create a workspace for the ros1_bridge
-RUN mkdir -p ~/ros1_bridge/src && cd ~/ros1_bridge/src \
-    && git clone https://github.com/ros2/ros1_bridge.git
+# RUN mkdir -p ~/ros1_bridge/src && cd ~/ros1_bridge/src \
+#     && git clone https://github.com/ros2/ros1_bridge.git
 
 # Source the ROS 2 workspace
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
 # Build the ros1_bridge package
-WORKDIR /root/ros1_bridge
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
+WORKDIR /ros-humble-ros1-bridge
+# RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
 RUN apt-get update && apt-get install -y ros-humble-domain-bridge
-RUN echo "source /root/ros1_bridge/install/setup.bash" >> ~/.bashrc
+RUN echo "source /ros-humble-ros1-bridge/install/setup.bash" >> ~/.bashrc
 
 # Set entrypoint to start a bash shell
 ENTRYPOINT ["/bin/bash"]

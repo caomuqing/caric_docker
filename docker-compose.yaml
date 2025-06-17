@@ -82,8 +82,8 @@ services:
       # - /var/run/docker.sock:/var/run/docker.sock # access docker API for container name    
       - ./ws_caric:/root/ws_caric:rw  # Mount your local src directory
       - ./libraries:/root/libraries:rw
-      - ./bridge.param:/root/ros1_bridge/bridge.param
-      - ./domain_bridge.yaml:/root/ros1_bridge/domain_bridge.yaml
+      - ./bridge.param:/ros-humble-ros1-bridge/bridge.param
+      - ./domain_bridge.yaml:/ros-humble-ros1-bridge/domain_bridge.yaml
     # runtime: nvidia
     privileged: true
     stdin_open: true
