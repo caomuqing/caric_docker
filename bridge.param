@@ -1,13 +1,24 @@
 topics:
   -
     topic: /chatter  # Topic name on both ROS 1 and ROS 2
-    type: std_msgs/msg/String  # Type of topic to bridge
+    type: std_msgs/msg/String  # Type of topic to bridge. This bridge config uses ROS2 naming as the standard.
     queue_size: 1  # Queue size
+
+  -
+    topic: /ppcom_topology  # Topic name on both ROS 1 and ROS 2
+    type: rotors_comm_msgs/msg/PPComTopology  # Type of topic to bridge
+    queue_size: 1  # Queue size
+
+  -
+    topic: /ppcom_topology_doa
+    type: rotors_comm_msgs/msg/PPComTopology
+    queue_size: 1
 
   -
     topic: /sentosa/command/gimbal  # Topic name on both ROS 1 and ROS 2
     type: geometry_msgs/msg/Twist  # Type of topic to bridge
     queue_size: 1  # Queue size
+
   -
     topic: /sentosa/gimbal  # Topic name on both ROS 1 and ROS 2
     type: geometry_msgs/msg/TwistStamped  # Type of topic to bridge
