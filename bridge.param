@@ -15,6 +15,21 @@ topics:
     queue_size: 1
 
   -
+    topic: /task_assign
+    type: std_msgs/msg/String
+    queue_size: 1
+
+  -
+    topic: /broadcast
+    type: std_msgs/msg/String
+    queue_size: 1
+
+  -
+    topic: /ping_message
+    type: std_msgs/msg/String
+    queue_size: 1
+
+  -
     topic: /sentosa/command/gimbal  # Topic name on both ROS 1 and ROS 2
     type: geometry_msgs/msg/Twist  # Type of topic to bridge
     queue_size: 1  # Queue size
@@ -39,3 +54,12 @@ topics:
           secs: 40
           nsecs: 5678    
 
+services_1_to_2:
+  -
+    service: create_ppcom_topic  # ROS 1 service name
+    type: caric_mission/srv/CreatePPComTopic  # The ROS 2 service type name
+
+services_2_to_1:
+  -
+    service: create_ppcom_topic  # ROS 2 service name
+    type: caric_mission/CreatePPComTopic  # The ROS 2 service type name
