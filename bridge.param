@@ -1,9 +1,32 @@
+# bridge.param - ROS1 to ROS2 Bridge Configuration
 topics:
+  # =============================================================================
+  # Basic Communication Messages
+  # =============================================================================
   -
     topic: /chatter  # Topic name on both ROS 1 and ROS 2
     type: std_msgs/msg/String  # Type of topic to bridge. This bridge config uses ROS2 naming as the standard.
     queue_size: 1  # Queue size
 
+  # =============================================================================
+  # Baseline Message
+  # =============================================================================
+
+  # Task Assignment - Core Message
+  -
+    topic: /task_assign
+    type: std_msgs/msg/String
+    queue_size: 10
+
+  # Broadcast Communication - Key Collaboration Message
+  -
+    topic: /broadcast
+    type: std_msgs/msg/String
+    queue_size: 10
+
+  # =============================================================================
+  # PPCom Network Topology Messages
+  # =============================================================================
   -
     topic: /ppcom_topology  # Topic name on both ROS 1 and ROS 2
     type: rotors_comm_msgs/msg/PPComTopology  # Type of topic to bridge
@@ -14,30 +37,81 @@ topics:
     type: rotors_comm_msgs/msg/PPComTopology
     queue_size: 1
 
+  # =============================================================================
+  # UAV State and Control Messages
+  # =============================================================================
+  # Position information of each UAV
   -
-    topic: /task_assign
-    type: std_msgs/msg/String
+    topic: /jurong/ground_truth/odometry
+    type: nav_msgs/msg/Odometry
+    queue_size: 10
+
+  -
+    topic: /raffles/ground_truth/odometry
+    type: nav_msgs/msg/Odometry
+    queue_size: 10
+
+  -
+    topic: /changi/ground_truth/odometry
+    type: nav_msgs/msg/Odometry
+    queue_size: 10
+
+  -
+    topic: /sentosa/ground_truth/odometry
+    type: nav_msgs/msg/Odometry
+    queue_size: 10
+
+  -
+    topic: /nanyang/ground_truth/odometry
+    type: nav_msgs/msg/Odometry
+    queue_size: 10
+
+  # Gimbal Control Messages (From ROS2 to ROS1)
+  -
+    topic: /jurong/command/gimbal
+    type: geometry_msgs/msg/Twist
     queue_size: 1
 
   -
-    topic: /broadcast
-    type: std_msgs/msg/String
+    topic: /raffles/command/gimbal
+    type: geometry_msgs/msg/Twist
     queue_size: 1
 
   -
-    topic: /ping_message
-    type: std_msgs/msg/String
+    topic: /changi/command/gimbal
+    type: geometry_msgs/msg/Twist
     queue_size: 1
 
   -
-    topic: /sentosa/command/gimbal  # Topic name on both ROS 1 and ROS 2
-    type: geometry_msgs/msg/Twist  # Type of topic to bridge
-    queue_size: 1  # Queue size
+    topic: /sentosa/command/gimbal
+    type: geometry_msgs/msg/Twist
+    queue_size: 1
 
   -
-    topic: /sentosa/gimbal  # Topic name on both ROS 1 and ROS 2
-    type: geometry_msgs/msg/TwistStamped  # Type of topic to bridge
-    queue_size: 1  # Queue size    
+    topic: /nanyang/command/gimbal
+    type: geometry_msgs/msg/Twist
+    queue_size: 1
+
+  # Gimbal State Messages
+  -
+    topic: /jurong/gimbal
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
+
+  -
+    topic: /raffles/gimbal
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
+
+  -
+    topic: /changi/gimbal
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
+
+  -
+    topic: /sentosa/gimbal
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
     qos:
       history: keep_last  # OR keep_all, then you can omit `depth` parameter below
       depth: 10  # Only required when history == keep_last
@@ -54,12 +128,175 @@ topics:
           secs: 40
           nsecs: 5678    
 
-services_1_to_2:
   -
-    service: create_ppcom_topic  # ROS 1 service name
-    type: caric_mission/srv/CreatePPComTopic  # The ROS 2 service type name
+    topic: /nanyang/gimbal
+    type: geometry_msgs/msg/TwistStamped
+    queue_size: 1
 
-services_2_to_1:
+  # Trajectory Control Messages (From ROS2 to ROS1)
   -
-    service: create_ppcom_topic  # ROS 2 service name
-    type: caric_mission/CreatePPComTopic  # The ROS 2 service type name
+    topic: /jurong/command/trajectory
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    queue_size: 1
+
+  -
+    topic: /raffles/command/trajectory
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    queue_size: 1
+
+  -
+    topic: /changi/command/trajectory
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    queue_size: 1
+
+  -
+    topic: /sentosa/command/trajectory
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    queue_size: 1
+
+  -
+    topic: /nanyang/command/trajectory
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    queue_size: 1
+
+  # =============================================================================
+  # Perception Data Messages
+  # =============================================================================
+  # Point Cloud Data
+  -
+    topic: /jurong/cloud_inW
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /raffles/cloud_inW
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /changi/cloud_inW
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /sentosa/cloud_inW
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /nanyang/cloud_inW
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  # Neighbor Position Point Cloud
+  -
+    topic: /jurong/nbr_odom_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /raffles/nbr_odom_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /changi/nbr_odom_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /sentosa/nbr_odom_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /nanyang/nbr_odom_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  # Keyframe Point Cloud
+  -
+    topic: /jurong/slf_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /raffles/slf_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /changi/slf_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /sentosa/slf_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /nanyang/slf_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  # Neighbor Keyframe Point Cloud
+  -
+    topic: /jurong/nbr_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /raffles/nbr_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /changi/nbr_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /sentosa/nbr_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  -
+    topic: /nanyang/nbr_kf_cloud
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 5
+
+  # Interest Point Detection
+  -
+    topic: /jurong/detected_interest_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 10
+
+  -
+    topic: /raffles/detected_interest_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 10
+
+  -
+    topic: /changi/detected_interest_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 10
+
+  -
+    topic: /sentosa/detected_interest_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 10
+
+  -
+    topic: /nanyang/detected_interest_points
+    type: sensor_msgs/msg/PointCloud2
+    queue_size: 10
+
+  # =============================================================================
+  # GCS Messages
+  # =============================================================================
+  # Bounding Box Information
+  -
+    topic: /gcs/bounding_box_vertices
+    type: sensor_msgs/msg/PointCloud
+    queue_size: 1
