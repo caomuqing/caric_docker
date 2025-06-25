@@ -55,6 +55,7 @@ To run the baseline method:
 ```bash
 source devel/setup.bash
 roslaunch caric_baseline run.launch scenario:=mbs
+or roslaunch caric_mission run_mbs.launch
 ```
 
 Open a new terminal and go into the ros_bridge container
