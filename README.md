@@ -55,9 +55,8 @@ To run the baseline method:
 ```bash
 source devel/setup.bash
 roslaunch caric_baseline run.launch scenario:=mbs
-or roslaunch caric_mission run_mbs.launch
-```
 
+```
 Open a new terminal and go into the ros_bridge container
 ```bash
 docker exec -it ros_caric_bridge bash
@@ -65,19 +64,53 @@ rosparam load bridge.param #load the ros1-ros2 bridge parameter
 ros2 run ros1_bridge parameter_bridge #run ros1_bridge
 ```
 
-Open a new terminal of ros_bridge container and run ros2 domain bridge:
-```bash
-docker exec -it ros_caric_bridge bash
-ros2 run domain_bridge domain_bridge domain_bridge.yaml
-```
+The file `bridge.param` controls which topics are bridged from ROS1 to ROS2.
 
-In the new docker ros_caric_drone (ROS_DOMAIN_ID=1), you should be able to get the ros2 topic of drone status:
+> **Note:** You can adjust message transmission between domains by editing the configuration files (such as `bridge.param`).
+
+### Configuration Adjustment
+
+Each node is assigned a domain ID using the `TARGET_TO_DOMAIN` mapping:
+
+<p align="center">
+
+| Domain ID | Node                   |
+|:---------:|:----------------------:|
+| 0         | Central domain         |
+| 1         | Jurong UAV             |
+| 2         | Raffles UAV            |
+| 3         | Sentosa UAV            |
+| 4         | Changi UAV             |
+| 5         | Nanyang UAV            |
+| 99        | Ground Control Station |
+
+</p>
+
+You can modify the configuration files in `caric_mission_ros2/config` to adjust:
+- Message routing rules between domains
+- Communication parameters and frequency
+- Message reception strategies for each UAV node
+
+Customize these parameters to suit your multi-domain communication needs.
+
+## Run PPCom (Peer-to-Peer Communication) System
+
+The PPCom system enables distributed communication between multiple drone nodes across different ROS2 domains.
+
+For detailed instructions, see the [caric_mission_ros2 README](caric_mission_ros2/README.md).
+
+### View ROS2 Topic List
+
+To view topics in a specific ROS2 domain, set the `ROS_DOMAIN_ID` environment variable.  
+For example:
 ```bash
 docker exec -it ros_caric_drone bash
-ros2 topic echo /sentosa/gimbal
+export ROS_DOMAIN_ID=1
+ros2 topic list
 ```
+> **Notice:** The topics you see here are processed through the Line-of-Sight (LOS) communication mechanism.
 
-The file `domain_bridge.yaml` governs the topics to be transferred across domains in ROS2.
+Set `ROS_DOMAIN_ID` to the desired domain number to see all ROS2 topics in that domain. This is useful for debugging cross-domain communication and topic mapping.
 
 The file `bridge.param` governs the topics to be bridged from ROS1 to ROS2.
 
