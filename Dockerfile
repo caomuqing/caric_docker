@@ -1,13 +1,23 @@
 # Use osrf/ros:noetic-desktop-full as the base image
 FROM xuxinhang007/caric:v1
 
-# Update and install additional dependencies
+# Fix ROS GPG keys first
+RUN apt-get update && apt-get install -y curl gnupg2 lsb-release && \
+    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/ros-latest.list > /dev/null
+
+# Update package lists with new keys
+RUN apt-get update
+
+# Install dependencies with fallback options
 RUN apt-get update && \
     apt-get install -y \
-    ros-noetic-navigation \
-    ros-noetic-turtlebot3 \
     python3-rosdep \
     git && \
+    apt-get install -y ros-noetic-navigation || \
+    (echo "Navigation stack not available, continuing..." && apt-get install -y ros-noetic-nav-core ros-noetic-move-base || true) && \
+    apt-get install -y ros-noetic-turtlebot3 || \
+    (echo "Turtlebot3 not available, skipping..." && true) && \
     rm -rf /var/lib/apt/lists/*
 
 # Initialize rosdep

@@ -1,0 +1,158 @@
+name: my_domain_bridge
+from_domain: 0
+to_domain: 1
+
+topics:
+  # Bridge "/foo/chatter" topic from doman ID 2 to domain ID 3
+  # Automatically detect QoS settings and default to 'keep_last' history with depth 1
+
+  /jurong/cloud_inW:
+    type: sensor_msgs/msg/PointCloud2
+  /jurong/detected_interest_points:
+    type: sensor_msgs/msg/PointCloud2
+  /jurong/gimbal:
+    type: geometry_msgs/msg/TwistStamped
+  /jurong/ground_truth/odometry:
+    type: nav_msgs/msg/Odometry
+  /jurong/nbr_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+  /jurong/nbr_odom_cloud:
+    type: sensor_msgs/msg/PointCloud2
+  /jurong/slf_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+
+  /domain1/gcs/bounding_box_vertices:
+    type: sensor_msgs/msg/PointCloud
+    remap: gcs/bounding_box_vertices
+
+  /domain1/changi/cloud_inW:
+    type: sensor_msgs/msg/PointCloud2
+    remap: changi/cloud_inW
+  /domain1/changi/detected_interest_points:
+    type: sensor_msgs/msg/PointCloud2
+    remap: changi/detected_interest_points
+  /domain1/changi/gimbal:
+    type: geometry_msgs/msg/TwistStamped
+    remap: changi/gimbal
+  /domain1/changi/ground_truth/odometry:
+    type: nav_msgs/msg/Odometry
+    remap: changi/ground_truth/odometry
+  /domain1/changi/nbr_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: changi/nbr_kf_cloud
+  /domain1/changi/nbr_odom_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: changi/nbr_odom_cloud
+  /domain1/changi/slf_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: changi/slf_kf_cloud
+
+  /domain1/nanyang/cloud_inW:
+    type: sensor_msgs/msg/PointCloud2
+    remap: nanyang/cloud_inW
+  /domain1/nanyang/detected_interest_points:
+    type: sensor_msgs/msg/PointCloud2
+    remap: nanyang/detected_interest_points
+  /domain1/nanyang/gimbal:
+    type: geometry_msgs/msg/TwistStamped
+    remap: nanyang/gimbal
+  /domain1/nanyang/ground_truth/odometry:
+    type: nav_msgs/msg/Odometry
+    remap: nanyang/ground_truth/odometry
+  /domain1/nanyang/nbr_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: nanyang/nbr_kf_cloud
+  /domain1/nanyang/nbr_odom_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: nanyang/nbr_odom_cloud
+  /domain1/nanyang/slf_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: nanyang/slf_kf_cloud
+
+  /domain1/raffles/cloud_inW:
+    type: sensor_msgs/msg/PointCloud2
+    remap: raffles/cloud_inW
+  /domain1/raffles/detected_interest_points:
+    type: sensor_msgs/msg/PointCloud2
+    remap: raffles/detected_interest_points
+  /domain1/raffles/gimbal:
+    type: geometry_msgs/msg/TwistStamped
+    remap: raffles/gimbal
+  /domain1/raffles/ground_truth/odometry:
+    type: nav_msgs/msg/Odometry
+    remap: raffles/ground_truth/odometry
+  /domain1/raffles/nbr_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: raffles/nbr_kf_cloud
+  /domain1/raffles/nbr_odom_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: raffles/nbr_odom_cloud
+  /domain1/raffles/slf_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: raffles/slf_kf_cloud
+
+  /domain1/sentosa/cloud_inW:
+    type: sensor_msgs/msg/PointCloud2
+    remap: sentosa/cloud_inW
+  /domain1/sentosa/detected_interest_points:
+    type: sensor_msgs/msg/PointCloud2
+    remap: sentosa/detected_interest_points
+  /domain1/sentosa/gimbal:
+    type: geometry_msgs/msg/TwistStamped
+    remap: sentosa/gimbal
+  /domain1/sentosa/ground_truth/odometry:
+    type: nav_msgs/msg/Odometry
+    remap: sentosa/ground_truth/odometry
+  /domain1/sentosa/nbr_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: sentosa/nbr_kf_cloud
+  /domain1/sentosa/nbr_odom_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: sentosa/nbr_odom_cloud
+  /domain1/sentosa/slf_kf_cloud:
+    type: sensor_msgs/msg/PointCloud2
+    remap: sentosa/slf_kf_cloud
+
+  # Command
+  /jurong/command/gimbal:
+    type: geometry_msgs/msg/Twist
+    from_domain: 1
+    to_domain: 0
+  /jurong/command/trajectory:
+    type: trajectory_msgs/msg/MultiDOFJointTrajectory
+    from_domain: 1
+    to_domain: 0
+
+  # Bridge "/clock" topic from doman ID 2 to domain ID 3,
+  # Override durability to be 'volatile' and override depth to be 1
+  clock:
+    type: rosgraph_msgs/msg/Clock
+    qos:
+      durability: volatile
+      depth: 1
+
+  # Bridge "/clock" topic from doman ID 2 to domain ID 6
+  # Automatically detect QoS settings and override history to 'keep_all'
+  # clock:
+  #   type: rosgraph_msgs/msg/Clock
+  #   to_domain: 6
+  #   qos:
+  #     history: keep_all
+
+  # Bridge "/chitter" topic from domain ID 2 to domain ID 3 with the name "/chatter"
+  # chitter:
+  #   type: example_interfaces/msg/String
+  #   remap: chatter
+
+# services:
+  # Bridge "add_two_ints" service from domain ID 4 to domain ID 6
+  # add_two_ints:
+  #   type: example_interfaces/srv/AddTwoInts
+  #   from_domain: 4
+  #   to_domain: 6
+
+# actions:
+  # Bridge "fibonacci" action from domain ID 1 to domain ID 3
+  # fibonacci:
+  #   type: example_interfaces/action/Fibonacci
+  #   from_domain: 1

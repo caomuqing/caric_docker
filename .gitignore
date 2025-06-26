@@ -1,0 +1,88 @@
+# ROS/Catkin workspace files
+build/
+devel/
+logs/
+.catkin_tools/
+.catkin_workspace
+
+# Install space (if using)
+install/
+
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build artifacts
+*.egg-info/
+dist/
+*.egg
+
+# Log files
+*.log
+*.out
+
+# IDE and editor files
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# System files
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+
+# Environment files
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# ROS specific
+# Parameter files (if containing sensitive info)
+# *.yaml
+# *.launch
+
+# Bag files (usually large)
+*.bag
+
+# Core dumps
+core.*
+
+# Temporary files
+*.temp
+*.tmp

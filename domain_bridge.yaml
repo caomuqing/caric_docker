@@ -10,6 +10,18 @@ topics:
     to_domain: 1
     bidirectional: True
 
+  /ppcom_topology:
+    type: rotors_comm_msgs/msg/PPComTopology
+    from_domain: 0
+    to_domain: 1
+    bidirectional: True
+
+  /ppcom_topology_doa:
+    type: rotors_comm_msgs/msg/PPComTopology
+    from_domain: 0
+    to_domain: 1
+    bidirectional: True
+
   /sentosa/command/gimbal:
     type: geometry_msgs/msg/Twist
     from_domain: 0
