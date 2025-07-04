@@ -1,24 +1,38 @@
 FROM osrf/ros:humble-desktop
 
 # Set environment variables
-# ENV DEBIAN_FRONTEND=noninteractive
-# ENV ROS_DOMAIN_ID=0
-# ENV LANG=en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DOMAIN_ID=0
+ENV LANG=en_US.UTF-8
 # ENV LC_ALL=en_US.UTF-8
 
-# # Install common tools and domain_bridge
-# RUN apt-get update && apt-get install -y \
-#     ros-humble-domain-bridge \
-#     ros-humble-demo-nodes-cpp \
-#     python3-colcon-common-extensions \
-#     iputils-ping \
-#     net-tools \
-#     nano \
-#     && rm -rf /var/lib/apt/lists/*
+# Install common tools and domain_bridge
+RUN apt-get update && apt-get install -y \
+    ros-humble-domain-bridge \
+    ros-humble-demo-nodes-cpp \
+    ros-humble-octomap-msgs \
+    python3-colcon-common-extensions \
+    iputils-ping \
+    net-tools \
+    nano \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# # Create a workspace for additional packages (optional)
-# RUN mkdir -p /root/ws/src
-# WORKDIR /root/ws
+# Create a workspace for additional packages (optional)
+RUN mkdir -p /root/ws/src
+WORKDIR /root/ws
+
+# Clone Caric_msgs repository
+RUN cd /root/ws/src && \
+    git clone https://github.com/vvEverett/caric_msg.git
+
+# Remove the ros1 sub-folder to avoid conflicts
+RUN rm -rf /root/ws/src/caric_msg/ros1
+
+# Build workspace in /root/ws
+# RUN /bin/bash -c "cd /root/ws && \
+#     source /opt/ros/humble/setup.bash && \
+#     time colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release"
 
 # Source ROS in every shell
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc

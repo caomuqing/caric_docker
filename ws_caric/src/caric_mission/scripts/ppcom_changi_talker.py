@@ -9,6 +9,9 @@ from std_msgs.msg import String
 from rotors_comm.msg import PPComTopology
 from caric_mission.srv import CreatePPComTopic
 
+import random
+import string
+
 def PingMessageCallback(msg):
     print(msg.data)
 
@@ -34,6 +37,10 @@ if __name__ == '__main__':
     rate = rospy.Rate(1)
     while not rospy.is_shutdown():
         
+        length = random.randint(0, 20)
+        letters = string.ascii_lowercase
+        result_str = ''.join(random.choice(letters) for i in range(length))
+
         # Send a message
         txt = rospy.get_name() + f" says hello at time {rospy.Time.now().to_sec()}. Random Text: {result_str}!"
         print("SENDING: ", txt)

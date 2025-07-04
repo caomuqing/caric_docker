@@ -38,6 +38,8 @@ FROM ros:humble-ros-base-jammy
 # Make sure bash catches errors (no need to chain commands with &&, use ; instead)
 SHELL ["/bin/bash", "-o", "pipefail", "-o", "errexit", "-c"]
 
+# Install basic dependencies (ROS2 repos already configured in base image)
+RUN apt-get update && apt-get install -y curl gnupg lsb-release
 
 ###########################
 # 1.) Bring system up to the latest ROS desktop configuration
@@ -47,9 +49,10 @@ RUN apt-get -y upgrade
 RUN apt-get -y install ros-humble-desktop
 
 ###########################
-# 2.) Temporarily remove ROS2 apt repository
+# 2.) Temporarily remove ROS2 apt repository to avoid conflicts
 ###########################
-RUN mv /etc/apt/sources.list.d/ros2-latest.list /root/
+# Remove any existing ROS2 sources
+RUN rm -f /etc/apt/sources.list.d/*ros* || true
 RUN apt-get update
 
 ###########################
@@ -82,12 +85,13 @@ RUN if [[ $(uname -m) = "arm64" || $(uname -m) = "aarch64" ]]; then             
     fi
 
 ###########################
-# 6.) Restore the ROS2 apt repos and set compilation options.
-#   For example, to include ROS tutorial message types, pass
-#   "--build-arg ADD_ros_tutorials=1" to the docker build command.
+# 6.) Create ROS2 apt repository explicitly
 ###########################
-RUN mv /root/ros2-latest.list /etc/apt/sources.list.d/
-RUN apt-get -y update
+# Create the ROS2 sources list file
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" \
+    > /etc/apt/sources.list.d/ros2.list && \
+    apt-get update
 
 # for ros-humble-example-interfaces:
 ARG ADD_ros_tutorials=1
@@ -96,12 +100,16 @@ ARG ADD_ros_tutorials=1
 ARG ADD_grid_map=0
 
 # for a custom message example
-ARG ADD_example_custom_msgs=0
+ARG ADD_example_custom_msgs=1
+
+# for octomap
+ARG ADD_octomap_msgs=1
 
 # sanity check:
 RUN echo "ADD_ros_tutorials         = '$ADD_ros_tutorials'"
 RUN echo "ADD_grid_map              = '$ADD_grid_map'"
 RUN echo "ADD_example_custom_msgs   = '$ADD_example_custom_msgs'"
+RUN echo "ADD_octomap_msgs          = '$ADD_octomap_msgs'"
 
 ###########################
 # 6.1) Add additional ros_tutorials messages and services
@@ -163,20 +171,39 @@ RUN if [[ "$ADD_grid_map" = "1" ]]; then                                        
     fi
 
 ######################################
-# 6.3) Compile custom message (code provided by Codaero)
+# 6.3) Add ROS1 octomap message (moved before custom_msgs due to dependency)
+######################################
+RUN if [[ "$ADD_octomap_msgs" = "1" ]]; then                                    \
+    git clone --depth 1 -b 0.3.5 https://github.com/OctoMap/octomap_msgs.git;   \
+    cd octomap_msgs/;                                                           \
+    unset ROS_DISTRO;                                                           \
+    time colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release;                  \
+fi
+
+######################################
+# 6.4) Compile custom message (code provided by Codaero)
 #   Note1: Make sure the package name ends with "_msgs".
 #   Note2: Use the same package name for both ROS1 and ROS2.
+#   Note3: This depends on octomap_msgs, so build octomap_msgs first
 #   See https://github.com/ros2/ros1_bridge/blob/master/doc/index.rst
 ######################################
 RUN if [[ "$ADD_example_custom_msgs" = "1" ]]; then                     \
-      git clone https://github.com/TommyChangUMD/custom_msgs.git;       \
+      git clone https://github.com/vvEverett/caric_msg.git;       \
       # Compile ROS1:                                                   \
-      cd /custom_msgs/custom_msgs_ros1;                                 \
+      cd /caric_msg/ros1;                                 \
+      if [[ "$ADD_octomap_msgs" = "1" ]]; then                          \
+        source /octomap_msgs/install/setup.bash;                        \
+      fi;                                                                \
       unset ROS_DISTRO;                                                 \
       time colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release;        \
       # Compile ROS2:                                                   \
-      cd /custom_msgs/custom_msgs_ros2;                                 \
+      cd /caric_msg/ros2;                                 \
       source /opt/ros/humble/setup.bash;                                \
+      if [[ "$ADD_octomap_msgs" = "1" ]]; then                          \
+        apt-get update;                                                  \
+        apt-get -y install ros-humble-octomap-msgs;                     \
+        source /opt/ros/humble/setup.bash;                              \
+      fi;                                                                \
       time colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release;        \
     fi
 
@@ -208,11 +235,26 @@ RUN                                                                             
       source /opt/ros/humble/setup.bash;                                        \
     fi;                                                                         \
     #                                                                           \
-    if [[ "$ADD_example_custom_msgs" = "1" ]]; then                             \
+    if [[ "$ADD_octomap_msgs" = "1" ]]; then                                    \
       # Apply ROS1 package overlay                                              \
-      source /custom_msgs/custom_msgs_ros1/install/setup.bash;                  \
+      source octomap_msgs/install/setup.bash;                                   \
       # Apply ROS2 package overlay                                              \
-      source /custom_msgs/custom_msgs_ros2/install/setup.bash;                  \
+      apt-get -y install ros-humble-octomap-msgs;                               \
+      source /opt/ros/humble/setup.bash;                                        \
+    fi;                                                                         \
+    #                                                                           \
+    if [[ "$ADD_example_custom_msgs" = "1" ]]; then                             \
+      # Apply ROS1 package overlay (with octomap dependency)                    \
+      if [[ "$ADD_octomap_msgs" = "1" ]]; then                                  \
+        source octomap_msgs/install/setup.bash;                                 \
+      fi;                                                                       \
+      source /caric_msg/ros1/install/setup.bash;                  \
+      # Apply ROS2 package overlay (with octomap dependency)                    \
+      if [[ "$ADD_octomap_msgs" = "1" ]]; then                                  \
+        apt-get -y install ros-humble-octomap-msgs;                             \
+        source /opt/ros/humble/setup.bash;                                      \
+      fi;                                                                       \
+      source /caric_msg/ros2/install/setup.bash;                  \
     fi;                                                                         \
     #                                                                           \
     #-------------------------------------                                      \
@@ -266,17 +308,17 @@ RUN ROS1_LIBS="libxmlrpcpp.so";                                                 
 ENV ROS_MASTER_URI=http://localhost:11311
 
 # Create a workspace for the ros1_bridge
-RUN mkdir -p ~/ros1_bridge/src && cd ~/ros1_bridge/src \
-    && git clone https://github.com/ros2/ros1_bridge.git
+# RUN mkdir -p ~/ros1_bridge/src && cd ~/ros1_bridge/src \
+#     && git clone https://github.com/ros2/ros1_bridge.git
 
 # Source the ROS 2 workspace
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
 # Build the ros1_bridge package
-WORKDIR /root/ros1_bridge
-RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
-RUN sudo apt install -y ros-humble-domain-bridge
-RUN echo "source /root/ros1_bridge/install/setup.bash" >> ~/.bashrc
+WORKDIR /ros-humble-ros1-bridge
+# RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build"
+RUN apt-get update && apt-get install -y ros-humble-domain-bridge
+RUN echo "source /ros-humble-ros1-bridge/install/setup.bash" >> ~/.bashrc
 
 # Set entrypoint to start a bash shell
 ENTRYPOINT ["/bin/bash"]

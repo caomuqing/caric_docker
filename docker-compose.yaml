@@ -15,8 +15,12 @@ services:
       cd /root/ws_caric &&       
       rosdep install --from-paths src --ignore-src -r -y && 
       touch /root/ws_caric/src/rotors_simulator/rotors_hil_interface/CATKIN_IGNORE &&
-      source /opt/ros/noetic/setup.bash && catkin build traj_gennav &&
-      catkin build && 
+      source /opt/ros/noetic/setup.bash && 
+      catkin build mav_msgs mav_system_msgs mav_state_machine_msgs -j2 &&
+      catkin build caric_mission -j2 &&
+      catkin build traj_gennav -j2 &&
+      catkin build caric_baseline -j2 &&
+      catkin build -j2 && 
       echo 'DOCKER RUNNING. Do not exit this terminal and open a new one to run command \"docker exec -it ros_caric_container_1 bash\"' &&
       sleep infinity"
     # bash -c "sleep infinity"
@@ -78,8 +82,8 @@ services:
       # - /var/run/docker.sock:/var/run/docker.sock # access docker API for container name    
       - ./ws_caric:/root/ws_caric:rw  # Mount your local src directory
       - ./libraries:/root/libraries:rw
-      - ./bridge.param:/root/ros1_bridge/bridge.param
-      - ./domain_bridge.yaml:/root/ros1_bridge/domain_bridge.yaml
+      - ./bridge.param:/ros-humble-ros1-bridge/bridge.param
+      - ./domain_bridge.yaml:/ros-humble-ros1-bridge/domain_bridge.yaml
     # runtime: nvidia
     privileged: true
     stdin_open: true
@@ -98,6 +102,14 @@ services:
         echo 'export FASTRTPS_DEFAULT_PROFILES_FILE=/root/fastdds.xml' >> ~/.bashrc &&
         # Set FastDDS configuration for current session
         export FASTRTPS_DEFAULT_PROFILES_FILE=/root/fastdds.xml &&
+        # Build caric_mission_ros2
+        cd /root/ws &&
+        source /opt/ros/humble/setup.bash &&
+        colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release &&
+        source /root/ws/install/setup.bash &&
+        # Add workspace setup to bashrc for persistence
+        echo 'source /root/ws/install/setup.bash' >> ~/.bashrc &&
+        echo 'caric_mission_ros2 workspace built successfully' &&
         # Keep container running
         exec bash -c 'while true; do sleep 30; done'
       "
@@ -105,7 +117,7 @@ services:
       - ACCEPT_EULA=Y
       - DISPLAY
       - QT_X11_NO_MITSHM=1
-      - ROS_DOMAIN_ID=1
+      - ROS_DOMAIN_ID=0
     deploy:
       # let it use the GPU
       resources:
@@ -124,6 +136,7 @@ services:
       # - ./libraries:/root/libraries:rw
       - ./bridge.param:/root/ros1_bridge/bridge.param
       - ./domain_bridge.yaml:/root/ros1_bridge/domain_bridge.yaml
+      - ./caric_mission_ros2:/root/ws/src/caric_mission_ros2:rw
     # runtime: nvidia
     privileged: true
     stdin_open: true
