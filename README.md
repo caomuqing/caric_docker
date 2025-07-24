@@ -1,5 +1,6 @@
 # caric_docker
 ### **docker for running Cooperative Aerial Robot Inspection Challenge (CARIC)**
+Join the IROS 2025 CARIC Competition! More details at the [official website](https://ntu-aris.github.io/caric/).
 
 Preliminary: make sure you have docker installed: [instruction](https://docs.docker.com/engine/install/ubuntu/).
 
