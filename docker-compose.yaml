@@ -17,6 +17,7 @@ services:
       touch /root/ws_caric/src/rotors_simulator/rotors_hil_interface/CATKIN_IGNORE &&
       source /opt/ros/noetic/setup.bash && 
       catkin build mav_msgs mav_system_msgs mav_state_machine_msgs -j2 &&
+      catkin build rotors_comm -j2 &&
       catkin build caric_mission -j2 &&
       catkin build traj_gennav -j2 &&
       catkin build caric_baseline -j2 &&
